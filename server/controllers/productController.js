@@ -151,7 +151,7 @@ exports.createProductReview = async (req, res) => {
             comment
         }
 
-        const product = await Product.findById(req.body.productId);
+        const product = await Product.findById(productId);
 
         const isReviewed = product.reviews.find(rev => rev.user.toString() === req.user._id.toString());
 
@@ -159,23 +159,23 @@ exports.createProductReview = async (req, res) => {
 
             product.reviews.forEach(rev => {
                 if (rev.user.toString() === req.user._id.toString()) {
-                        rev.rating = rating,
+                    rev.rating = rating,
                         rev.comment = comment
                 }
             })
 
         } else {
-            product.reviews.push(review) ;
-            product.numOfReviews = product.reviews.length ;
+            product.reviews.push(review);
+            product.numOfReviews = product.reviews.length;
         }
 
-        let avg = 0 ;
+        let avg = 0;
         product.ratings = product.reviews.forEach(rev => {
             avg += rev.rating
         })
-        product.rating = avg/ product.reviews.length ;
+        product.rating = avg / product.reviews.length;
 
-        await product.save({validateBeforeSave: false})
+        await product.save({ validateBeforeSave: false })
 
         res.status(200).json({
             success: true,
@@ -188,4 +188,94 @@ exports.createProductReview = async (req, res) => {
             message: err.message
         })
     }
+}
+
+
+
+// Get All reviews 
+exports.getProductReviews = async (req, res) => {
+    try {
+        const product = await Product.findById(req.query.id)
+
+        if (!product) {
+            return res.status(400).json({
+                success: false,
+                message: "Product not exist"
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            reviews: product.reviews
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+
+// Delete Review
+exports.deleteReview = async (req, res) => {
+    try {
+
+        const product = await Product.findById(req.query.productId);
+
+        if (!product) {
+            return res.status(400).json({
+                success: false,
+                message: "Product not exists"
+            })
+        }
+
+        const reviews = product.reviews.filter(
+            (rev) => rev._id.toString() !== req.query.id.toString() 
+        );
+
+        let avg = 0;
+
+        reviews.forEach((rev) => {
+            avg += rev.rating;
+        })
+
+        let ratings = 0
+
+        if (reviews.length === 0) {
+            ratings = 0;
+          } else {
+            ratings = avg / reviews.length;
+          }     
+
+        
+
+        const productUpdated = await Product.findByIdAndUpdate(req.query.productId, {
+            reviews,
+            rating: ratings,
+            numOfReviews: reviews.length,
+        },
+            {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
+            }
+        );
+
+        
+
+        res.status(200).json({
+            success: true,
+            message: "Review Deleted",
+            productUpdated
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+
 }
