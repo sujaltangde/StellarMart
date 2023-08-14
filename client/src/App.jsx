@@ -8,6 +8,7 @@ import { Loader } from "./components/Loader"
 import { ProductDetails } from "./pages/ProductDetails"
 import { AllProducts } from "./pages/AllProducts"
 import  Search  from "./components/Search"
+import { LoginSignUp } from "./pages/LoginSignUp"
 
 
 
@@ -30,8 +31,8 @@ function App() {
               <Route path="/products" element={<AllProducts/>} />
               <Route path="/products/:keyword" element={<AllProducts/>} />
               
-              <Route path="/search" element={<Search />} />
-              <Route exact path="/search" component={Search} />
+             
+              <Route path="/auth" element={<LoginSignUp />} />
           
 
 

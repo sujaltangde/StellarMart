@@ -7,7 +7,8 @@ const productSlice = createSlice({
         loading: false,
         error: null,
         productsCount: 0,
-        resultPerPage: 0
+        resultPerPage: 0 ,
+        filteredProductsCount: 0 ,
         
     },
     reducers: {
@@ -20,6 +21,7 @@ const productSlice = createSlice({
             state.products = action.payload.products
             state.productsCount = action.payload.productCount
             state.resultPerPage = action.payload.resultPerPage
+            state.filteredProductsCount = action.payload.filteredProductsCount
         },
         allProductFail: (state,action) => {
             state.loading = false;

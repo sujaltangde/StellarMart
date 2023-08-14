@@ -10,6 +10,8 @@ exports.createProduct = async (req, res, next) => {
 
         const product = await Product.create(req.body)
 
+        
+
         res.status(201).json({
             success: true,
             product
@@ -34,8 +36,7 @@ exports.getAllProducts = async (req, res) => {
             .filter()
             .pagination(resultPerPage)
 
-        const products = await apiFeature.query;
-
+        const products = await apiFeature.query;       
 
         res.status(200).json({
             success: true,

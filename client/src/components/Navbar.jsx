@@ -25,7 +25,7 @@ export const Navbar = () => {
             </ul>
             <ul className='flex md:gap-8 gap-8 md:pr-9 pr-3 justify-center items-center'>
               <Link className='hover:text-orange-400' > <FiShoppingBag size={25} /> </Link>
-              <Link className='hover:text-orange-400' > <MdAccountBox size={25} /> </Link>
+              <Link to="/auth" className='hover:text-orange-400' > <MdAccountBox size={25} /> </Link>
               
             </ul>
 

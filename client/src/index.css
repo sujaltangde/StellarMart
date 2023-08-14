@@ -44,3 +44,21 @@ input[type="number"]{
 .page-item:first-child{
     border-radius: 5px 0 0 5px;
 }
+
+
+
+
+.shiftToLeft{
+    transform: translateX(-100%);
+}
+.shiftToNeutral{
+    transform: translateX(0%);
+}
+.shiftToNeutralForm{
+    transform: translateX(0%) translateY(-100%) ;
+}
+
+.shiftToRight{
+    transform: translateX(100%);
+}
+

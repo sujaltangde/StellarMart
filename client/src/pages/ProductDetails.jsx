@@ -104,6 +104,7 @@ export const ProductDetails = () => {
                                     <div className='border pl-8 border-x-0 py-4 border-gray-400'>
                                         <p className='text-4xl py-2'>{product.name}</p>
                                         <p className='text-xl text-gray-500'>Product #{product._id}</p>
+                                        <p className='font-medium text-lg text-gray-500'>In {product.category}'s</p>
                                     </div>
 
 
