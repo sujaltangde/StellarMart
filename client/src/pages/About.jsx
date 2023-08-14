@@ -25,12 +25,12 @@ export const About = () => {
             <div className='pt-16 min-h-screen'>
                 <MetaData title={"About"} />
                 <div className='md:px-14 px-4 pb-20'>
-
+{/* 
                     <div>
                                 {value}
                                 <button onClick={()=>handleIncr()} >Incr</button>
                                 <button onClick={()=>handleDecr()} >Decr</button>
-                    </div>
+                    </div> */}
 
                     <p className='pt-8 font-bold text-3xl text-blue-900'>About StellarMart</p>
 

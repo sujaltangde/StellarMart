@@ -4,13 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { HomeHeader } from '../components/HomeHeader';
 import { Products } from '../components/Products';
 import { MetaData } from '../components/MetaData';
-import { getProduct } from '../actions/productAction';
+import { getProducts } from '../actions/productAction';
 import {useDispatch, useSelector} from 'react-redux'
 
 
 
 export const Home = () => {
-    const notify = () => toast.success("Login Successful !");
+    const Errnotify = () => toast.error("Something went wrong !");
 
     const {products, loading, error, productsCount} = useSelector( state =>  state.products )
 
@@ -19,11 +19,12 @@ export const Home = () => {
 
     useEffect(()=>{
 
-        dispatch(getProduct())
-    },[dispatch])
+        dispatch(getProducts())
+        
+    },[dispatch, error])
 
 
-    console.log(products, loading, productsCount)
+    // console.log(products, loading, productsCount)
     
     return (
         <>
@@ -44,7 +45,7 @@ export const Home = () => {
 
 
                 <HomeHeader/>
-         <button onClick={notify}>Notify!</button>
+         <button onClick={Errnotify}>Notify!</button>
 
             <Products products={products} loading={loading} />
             

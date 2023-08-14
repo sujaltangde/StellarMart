@@ -18,7 +18,7 @@ export const Navbar = () => {
               StellarMart</Link>
             <ul className='gap-12 pr-8 md:flex hidden   text-xl justify-center items-center'>
               <Link className='hover:text-orange-400' to="/">Home</Link>
-              <Link className='hover:text-orange-400' >Products</Link>
+              <Link className='hover:text-orange-400' to="/products" >Products</Link>
               <Link className='hover:text-orange-400' >Contact</Link>
               <Link className='hover:text-orange-400'  to="/about" >About</Link>
               
@@ -42,11 +42,11 @@ export const Navbar = () => {
           </div>
 
       </div>
-      <div className={`${toggle? "hidden" : "flex"  } fixed top-12 `} >
+      <div className={`${toggle? "hidden" : "flex"  } fixed top-12 nav `} >
             <div className='bg-blue-950 w-screen h-screen bg-opacity-95 z-20 pt-16'>
             <ul className='gap-20  flex flex-col text-white   text-2xl justify-center items-center'>
               <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' to="/">Home</Link>
-              <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' >Products</Link>
+              <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' to="products" >Products</Link>
               <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' >Contact</Link>
               <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20'  to="/about" >About</Link>
               

@@ -7,6 +7,8 @@ const productSlice = createSlice({
         loading: false,
         error: null,
         productsCount: 0,
+        resultPerPage: 0
+        
     },
     reducers: {
         allProductRequest: (state) => {
@@ -16,12 +18,28 @@ const productSlice = createSlice({
         allProductSuccess: (state, action) => {
             state.loading = false;
             state.products = action.payload.products
-            state.productsCount = action.payload.productsCount
+            state.productsCount = action.payload.productCount
+            state.resultPerPage = action.payload.resultPerPage
         },
         allProductFail: (state,action) => {
             state.loading = false;
             state.error = action.payload
         },
+        
+
+        productDetailsRequest: (state) => {
+            state.loading = false ;
+        },
+        productDetailsSuccess: (state, action) => {
+            state.loading = false;
+            state.product = action.payload
+        },
+        productDetailsFail: (state,action) => {
+            state.loading = false;
+            state.error = action.payload
+        },
+
+
         clearErrors: (state) => {
             state.error = null
 
@@ -29,6 +47,6 @@ const productSlice = createSlice({
     }
 })
 
-export const { allProductRequest, allProductSuccess, allProductFail, clearErrors} = productSlice.actions ;
+export const { allProductRequest, allProductSuccess, allProductFail, clearErrors, productDetailsRequest, productDetailsSuccess, productDetailsFail} = productSlice.actions ;
 
 export default productSlice.reducer ;

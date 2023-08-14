@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosArrowDown } from 'react-icons/Io'
 import { Link as LinkSr } from 'react-scroll'
-import { Search } from './Search'
+import  Search  from './Search'
 
 export const HomeHeader = () => {
     return (
