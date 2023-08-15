@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {allProductRequest, allProductSuccess, allProductFail, clearErrors } from '../slices/ProductSlice.js'
 import {productDetailsRequest, productDetailsSuccess, productDetailsFail } from '../slices/ProductDetailSlice.js'
-
+import { host } from './Host.js'
 
 // Getting All Products
 export const getProducts = (keyword = "", currentPage = 1, price = [0, 25000], category = "", ratings = 0)=> async (dispatch)=>{

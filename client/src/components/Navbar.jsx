@@ -1,17 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {FiShoppingBag} from 'react-icons/fi'
 import {MdAccountBox} from 'react-icons/md'
 import {FaBars} from 'react-icons/fa'
 import {RxCross1} from 'react-icons/rx'
+import {RiLogoutCircleRLine} from 'react-icons/ri'
+import { useDispatch, useSelector } from "react-redux"
+import { setIsLoginFalse } from '../slices/UserSlice'
+
+
+
 
 export const Navbar = () => {
+  
+  const {isLogin} = useSelector(state => state.user)
+
+  const dispatch = useDispatch()
 
   const [toggle, setToggle ] = useState(true)
+
+  const logOut = () => {
+       localStorage.removeItem('token')
+       dispatch(setIsLoginFalse())
+  }
+
+  
 
   return (
     <>
       <div className='fixed min-w-full z-10 '>
+      
           <div className='bg-blue-950 text-white flex md:gap-12 gap-6 py-3 justify-between md:px-6 px-2'> 
             <Link to="/" className='md:text-2xl flex gap-1 text-lg font-bold  '>
               <img  src="/favicon.png" className='md:h-8 h-7 ' alt="" />
@@ -23,14 +41,20 @@ export const Navbar = () => {
               <Link className='hover:text-orange-400'  to="/about" >About</Link>
               
             </ul>
-            <ul className='flex md:gap-8 gap-8 md:pr-9 pr-3 justify-center items-center'>
+            <ul className='flex md:gap-8 gap-8 md:pr-9 pr-1 justify-center items-center'>
               <Link className='hover:text-orange-400' > <FiShoppingBag size={25} /> </Link>
-              <Link to="/auth" className='hover:text-orange-400' > <MdAccountBox size={25} /> </Link>
+              
+             
+              {isLogin?  
+              
+              <span onClick={()=>logOut()}  className='flex cursor-pointer font-medium gap-1 justify-center items-center md:text-sm text-xs rounded border  p-1'>Logout<RiLogoutCircleRLine  className=' cursor-pointer ' size={20} /></span> : 
+              
+              <Link to="/auth" className='hover:text-orange-400' > <MdAccountBox size={25} /> </Link> }
+
               
             </ul>
 
-
-
+          
             
             <div className='md:hidden mr-1 flex justify-center cursor-pointer items-center border px-1 rounded-md '>
               {

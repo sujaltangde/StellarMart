@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const fileUpload = require('express-fileupload')
 
 
 app.use(express.json())
@@ -8,6 +9,9 @@ app.use(cors({
 	origin: "*",
 	credentials: true
 }))
+
+app.use(fileUpload());
+
 
 // Routes Import
 const product = require("./routes/productRoute.js")

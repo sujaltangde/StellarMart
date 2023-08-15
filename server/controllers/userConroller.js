@@ -3,21 +3,31 @@ const bcrypt = require('bcryptjs')
 const { createToken } = require('../middleware/auth.js')
 const sendEmail = require('../utils/sendEmail.js')
 const crypto = require("crypto")
+const cloudinary = require('cloudinary')
+
 
 
 // Register User 
 exports.registerUser = async (req, res, next) => {
     try {
+
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
+            folder: 'avatars',
+            width: 150,
+            crop: "scale",
+        })
+
         const { name, email, password } = req.body;
+        
 
         const hashPass = await bcrypt.hash(password, 10)
         const user = await User.create({
             name,
             email,
             password: hashPass,
-            avatar: {
-                public_id: "This is a sample id",
-                url: "profile pic url"
+            avtar: {
+                public_id: myCloud.public_id,
+                url: myCloud.secure_url,
             }
         });
 
@@ -42,7 +52,9 @@ exports.registerUser = async (req, res, next) => {
 // Login User
 exports.loginUser = async (req, res) => {
     try {
+       
         const { email, password } = req.body;
+     
 
         if (!email || !password) {
             return res.status(400).json({
@@ -50,16 +62,16 @@ exports.loginUser = async (req, res) => {
                 message: 'Please enter email and password'
             })
         }
-
+      
         const user = await User.findOne({ email });
-
+     
         if (!user) {
-            res.status(401).json({
+           return res.status(401).json({
                 success: false,
                 message: "User does not exists"
             })
         }
-
+      
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
@@ -68,11 +80,13 @@ exports.loginUser = async (req, res) => {
                 message: "Wrong credentials"
             })
         } else {
+         
             const userId = user._id;
+
             const email = user.email;
-
-            const token = await createToken(userId, email);
-
+           
+            const token = createToken(userId, email);
+         
             res.status(200).json({
                 success: true,
                 message: "User loggded in successfull",
@@ -220,23 +234,20 @@ exports.isLogin = async (req,res) => {
         const user = await User.findById(req.user._id) ;
 
         if(user){
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 isLogin: true
             })
         }
         if(!user){
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 isLogin: false
             })
         }
 
     }catch(err){
-        res.status(500).json({
-            success: false,
-            message: err.message
-        })
+            
     }
 } 
 

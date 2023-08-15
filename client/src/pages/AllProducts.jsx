@@ -58,17 +58,16 @@ export const AllProducts = () => {
     <>
       <MetaData title="Products" />
       <div className='min-h-screen pt-16 pb-20'>
-        <div className='pb-6 flex justify-center items-center'>
-          <Search />
-        </div>
 
-
+      {!loading? <div className='p-6  flex justify-center items-center'>
+                <Search />
+              </div> : null }
 
         {loading ? <Loader /> :
           <>
 
             <div className='text-2xl pt-2 pb-3 flex flex-col justify-center items-center '>
-
+              
 
 
               <span className='border md:pt-0  flex justify-center items-center border-gray-500 pb-1 border-x-0 border-t-0 px-12' >
@@ -76,21 +75,21 @@ export const AllProducts = () => {
 
             </div>
 
-            {products.length !== 0 ? 
-            <div className='grid md:grid-cols-4 pb-14 grid-cols-2 md:gap-14 gap-2 md:pl-52 justify-items-end'>
+            {products.length !== 0 ?
+              <div className='grid md:grid-cols-4 pb-14 grid-cols-2 md:gap-14 gap-2 md:pl-52 justify-items-end'>
 
-              
-               { 
-                products.map((product, i) => {
-                  return (
-                    <Product key={i} product={product} />
-                  )
-                }) 
-              }
-            
-            </div>
 
-            : <div className='text-xl py-20 min-h-[60vh] text-center text-  '>No products matching your preferences yet. Check back later!</div>}
+                {
+                  products.map((product, i) => {
+                    return (
+                      <Product key={i} product={product} />
+                    )
+                  })
+                }
+
+              </div>
+
+              : <div className='text-xl py-20 min-h-[60vh] text-center text-  '>No products matching your preferences yet. Check back later!</div>}
 
             {/* filter for desktop */}
             <div className='w-44 pl-8 absolute md:top-52 md:flex md:flex-col hidden '>

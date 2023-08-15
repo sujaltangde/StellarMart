@@ -3,7 +3,7 @@ import { BsSearch } from 'react-icons/bs'
 import { FaSearch } from 'react-icons/fa'
 import { getProducts } from '../actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
  const Search = () => {
 

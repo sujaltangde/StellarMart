@@ -6,31 +6,96 @@ const userSlice = createSlice({
     initialState:{
         loading: false,
         isAuthenticated: false,
-        user: {},
-        error: null
+        user: null,
+        error: null,
+        userExistErr: false,
+        wrongCredentialsErr: false,
+        isLogin: false,
+        loginNotify: false,
+        registerNotify: false
     },
+
     reducers:{
+
         loginRequest: (state) => {
             state.loading = true ;
             state.isAuthenticated = false ;
         },
+
         loginSuccess: (state, action) => {
             state.loading = false ;
             state.isAuthenticated = true ;
-            state.user = action.payload
+            state.user = action.payload ;
+            state.isLogin = true
         },
+ 
         loginFail: (state, action) => {
             state.loading = false ;
             state.isAuthenticated = false ;
             state.user = null ;
             state.error = action.payload ;
+            state.wrongCredentialsErr = true ; 
         },
+        registerRequest: (state) => {
+            state.loading = true ;
+            state.isAuthenticated = false ;
+        },
+
+        registerSuccess: (state, action) => {
+            state.loading = false ;
+            state.isAuthenticated = true ;
+            state.user = action.payload ;
+            isLogin = true ;
+        },
+ 
+        registerFail: (state, action) => {
+            state.loading = false ;
+            state.isAuthenticated = false ;
+            state.user = null ;
+            state.error = action.payload ;
+            state.userExistErr = true ;
+        },
+        
+        setUserExistErrFalse: (state)=>{
+            state.userExistErr = false
+        },
+
+        setWrongCredentialsErrFalse: (state)=>{
+            state.wrongCredentialsErr = false
+        },
+
+        setIsLoginTrue: (state) => {
+            state.isLogin = true 
+        },
+
+        setIsLoginFalse: (state) => {
+            state.isLogin = false 
+        },
+
+        setLoginNotifyTrue: (state) => {
+            state.loginNotify = true 
+        },
+
+        setLoginNotifyFalse: (state) => {
+            state.loginNotify = false 
+        },
+
+        setRegisterNotifyTrue: (state) => {
+            state.registerNotify = true 
+        },
+
+        setRegisterNotifyFalse: (state) => {
+            state.registerNotify = false 
+        },
+        
         clearErrors: (state) => {
             state.error = null
-        }
+        },
+
     }
 })
 
-export const { loginRequest, loginSuccess, loginFail, clearErrors } = userSlice.actions ;
+export const { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setUserExistErrFalse, setWrongCredentialsErrFalse, setIsLoginTrue, setIsLoginFalse, setLoginNotifyTrue,
+    setLoginNotifyFalse, setRegisterNotifyTrue, setRegisterNotifyFalse } = userSlice.actions ;
 
 export default userSlice.reducer

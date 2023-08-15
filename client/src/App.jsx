@@ -7,13 +7,27 @@ import { NotFound } from "./pages/NotFound"
 import { Loader } from "./components/Loader"
 import { ProductDetails } from "./pages/ProductDetails"
 import { AllProducts } from "./pages/AllProducts"
-import  Search  from "./components/Search"
 import { LoginSignUp } from "./pages/LoginSignUp"
+import { useEffect, useState } from "react"
+import {isLogin } from './actions/userAction.js'
+import { useDispatch } from "react-redux"
 
 
 
 
 function App() {
+
+  const dispatch = useDispatch()
+
+ 
+
+  useEffect(() => {
+    const LogOrNot = ()=>{
+      dispatch(isLogin());
+    }
+    LogOrNot()
+    
+  },[]);
 
 
   return (
