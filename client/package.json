@@ -15,7 +15,7 @@
     "@mantine/core": "^6.0.19",
     "@mantine/hooks": "^6.0.19",
     "@mantine/modals": "^6.0.19",
-    "@mui/material": "^5.14.4",
+    "@mui/material": "^5.14.5",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "react": "^18.2.0",

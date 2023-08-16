@@ -9,21 +9,28 @@ import { ProductDetails } from "./pages/ProductDetails"
 import { AllProducts } from "./pages/AllProducts"
 import { LoginSignUp } from "./pages/LoginSignUp"
 import { useEffect, useState } from "react"
-import {isLogin } from './actions/userAction.js'
-import { useDispatch } from "react-redux"
-
+import {isLogin as IsLogin} from './actions/userAction.js'
+import { useDispatch, useSelector } from "react-redux"
+import { Dashboard } from "./pages/Dashboard"
+import { Orders } from "./pages/Orders"
+import { Account } from "./pages/Account"
+import {me} from './actions/userAction.js'
 
 
 
 function App() {
 
   const dispatch = useDispatch()
+  const {isLogin} = useSelector(state => state.user)
 
+  useEffect(()=>{
+    dispatch(me()) ;
+  },[dispatch, isLogin])
  
 
   useEffect(() => {
     const LogOrNot = ()=>{
-      dispatch(isLogin());
+      dispatch(IsLogin());
     }
     LogOrNot()
     
@@ -41,6 +48,10 @@ function App() {
               <Route path="/about" element={<About/>} />
               <Route path="/:id" element={<ProductDetails/>}  />
               <Route path="/loader" element={<Loader/>} />
+
+              <Route path="/dashboard" element={<Dashboard/>} />
+              <Route path="/orders" element={<Orders/>} />
+              <Route path="/account" element={<Account/>} />
 
               <Route path="/products" element={<AllProducts/>} />
               <Route path="/products/:keyword" element={<AllProducts/>} />

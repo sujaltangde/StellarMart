@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, setRegisterNotifyTrue, setLoginNotifyTrue } from '../slices/UserSlice'
+import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, setRegisterNotifyTrue, setLoginNotifyTrue, getMeRequest, getMeSuccess, getMeFail  } from '../slices/UserSlice'
 
 
 export const login = (email, password) => async (dispatch) => {
@@ -25,6 +25,10 @@ export const login = (email, password) => async (dispatch) => {
         dispatch(loginFail(err.response.data.message));
     }
 }
+
+
+
+
 
 
 export const register = (userData) => async (dispatch) => {
@@ -66,6 +70,26 @@ export const isLogin = () => async (dispatch) => {
     }
 }
 
+
+export const me = () => async (dispatch) => {
+    try{
+
+        dispatch(getMeRequest()) ;
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.get("http://localhost:4000/api/v1/me",config) 
+
+        dispatch(getMeSuccess(data.user)) ;
+
+    }catch(err){
+        dispatch(getMeFail(err.response.data.message)) ;
+    }
+}
 
 
 // Clearing Errors

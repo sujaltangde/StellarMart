@@ -4,18 +4,18 @@ import {FiShoppingBag} from 'react-icons/fi'
 import {MdAccountBox} from 'react-icons/md'
 import {FaBars} from 'react-icons/fa'
 import {RxCross1} from 'react-icons/rx'
-import {RiLogoutCircleRLine} from 'react-icons/ri'
 import { useDispatch, useSelector } from "react-redux"
-import { setIsLoginFalse, setLogoutNotifyTrue } from '../slices/UserSlice'
-
+import { UserOptions } from './UserOptions'
 
 
 
 export const Navbar = () => {
+
+ 
   
   const {isLogin} = useSelector(state => state.user)
 
-  const dispatch = useDispatch()
+  
 
   const [toggle, setToggle ] = useState(true)
 
@@ -23,7 +23,7 @@ export const Navbar = () => {
        localStorage.removeItem('token')
        dispatch(setIsLoginFalse())
        dispatch(setLogoutNotifyTrue())
-       
+       navigate('/')
   }
 
   
@@ -44,15 +44,17 @@ export const Navbar = () => {
               
             </ul>
             <ul className='flex md:gap-8 gap-8 md:pr-9 pr-1 justify-center items-center'>
-              <Link className='hover:text-orange-400' > <FiShoppingBag size={25} /> </Link>
+              <Link className='hover:text-orange-400 ' > <FiShoppingBag size={25} /> </Link>
               
-             
+              
               {isLogin?  
               
-             <RiLogoutCircleRLine onClick={()=>logOut()}  className='hover:text-orange-400 cursor-pointer ' size={20} /> : 
+             
+             <UserOptions /> : 
               
               <Link to="/auth" className='hover:text-orange-400' > <MdAccountBox size={25} /> </Link> }
 
+               
               
             </ul>
 

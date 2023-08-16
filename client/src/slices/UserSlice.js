@@ -13,7 +13,8 @@ const userSlice = createSlice({
         isLogin: false,
         loginNotify: false,
         registerNotify: false,
-        logoutNotify: false
+        logoutNotify: false,
+        me: null
     },
 
     reducers:{
@@ -97,14 +98,31 @@ const userSlice = createSlice({
             state.logoutNotify = false 
         },
         
+        getMeRequest: (state) => {
+            state.loading = true
+        },
+        getMeSuccess: (state,action) => {
+            state.loading = false  ;
+            state.me = action.payload ;
+        },
+        getMeFail: (state,action) => {
+            state.loading = false ;
+            state.error = action.payload ;
+            state.me = null ;
+        },
+
+
         clearErrors: (state) => {
-            state.error = null
+            state.error = null ;
         },
 
     }
 })
 
 export const { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setUserExistErrFalse, setWrongCredentialsErrFalse, setIsLoginTrue, setIsLoginFalse, setLoginNotifyTrue,
-    setLoginNotifyFalse, setRegisterNotifyTrue, setRegisterNotifyFalse, setLogoutNotifyTrue, setLogoutNotifyFalse } = userSlice.actions ;
+    setLoginNotifyFalse, setRegisterNotifyTrue, setRegisterNotifyFalse, setLogoutNotifyTrue, setLogoutNotifyFalse, 
+    getMeRequest, 
+    getMeSuccess,
+     getMeFail } = userSlice.actions ;
 
 export default userSlice.reducer
