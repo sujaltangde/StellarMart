@@ -6,7 +6,7 @@ import { Products } from '../components/Products';
 import { MetaData } from '../components/MetaData';
 import { getProducts } from '../actions/productAction';
 import { useDispatch, useSelector } from 'react-redux'
-import { setLoginNotifyFalse, setRegisterNotifyFalse } from '../slices/UserSlice';
+import { setLoginNotifyFalse, setRegisterNotifyFalse, setLogoutNotifyFalse } from '../slices/UserSlice';
 
 
 
@@ -18,7 +18,7 @@ export const Home = () => {
 
     const dispatch = useDispatch()
 
-    const { loginNotify, registerNotify } = useSelector(state => state.user)
+    const { loginNotify, registerNotify, logoutNotify } = useSelector(state => state.user)
 
 
     useEffect(() => {
@@ -41,6 +41,13 @@ export const Home = () => {
             dispatch(setLoginNotifyFalse());
         }
     }, [loginNotify, dispatch]);
+
+    useEffect(() => {
+        if (logoutNotify) {
+            toast.success("Logout Successful !");
+            dispatch(setLogoutNotifyFalse());
+        }
+    }, [logoutNotify, dispatch]);
 
     return (
         <>

@@ -12,7 +12,8 @@ const userSlice = createSlice({
         wrongCredentialsErr: false,
         isLogin: false,
         loginNotify: false,
-        registerNotify: false
+        registerNotify: false,
+        logoutNotify: false
     },
 
     reducers:{
@@ -45,7 +46,7 @@ const userSlice = createSlice({
             state.loading = false ;
             state.isAuthenticated = true ;
             state.user = action.payload ;
-            isLogin = true ;
+            state.isLogin = true ;
         },
  
         registerFail: (state, action) => {
@@ -87,6 +88,14 @@ const userSlice = createSlice({
         setRegisterNotifyFalse: (state) => {
             state.registerNotify = false 
         },
+
+        setLogoutNotifyTrue: (state) => {
+            state.logoutNotify = true 
+        },
+
+        setLogoutNotifyFalse: (state) => {
+            state.logoutNotify = false 
+        },
         
         clearErrors: (state) => {
             state.error = null
@@ -96,6 +105,6 @@ const userSlice = createSlice({
 })
 
 export const { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setUserExistErrFalse, setWrongCredentialsErrFalse, setIsLoginTrue, setIsLoginFalse, setLoginNotifyTrue,
-    setLoginNotifyFalse, setRegisterNotifyTrue, setRegisterNotifyFalse } = userSlice.actions ;
+    setLoginNotifyFalse, setRegisterNotifyTrue, setRegisterNotifyFalse, setLogoutNotifyTrue, setLogoutNotifyFalse } = userSlice.actions ;
 
 export default userSlice.reducer

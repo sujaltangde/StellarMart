@@ -68,30 +68,3 @@ exports.authorizationRoles = (...roles) => {
 
 
 
-exports.isLog = async (req, res, next) => {
-   
-        const token = req.headers.authorization?.split(' ')[1]
-
-        if (!token) {
-            return res.status(401).json({
-                success: false,
-                message: "Missing token",
-                isLogin: false
-            })
-        }
-
-        jwt.verify(token, process.env.SECRET, async (err, user) => {
-            if (err) {
-                 res.status(403).json({
-                    success: false,
-                    message: 'Invalid Token',
-                    isLogin: false
-                })
-            }
-
-            req.user = await User.findById(user.id);
-            next();
-        })
-
-    
-}

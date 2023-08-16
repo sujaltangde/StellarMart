@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue } from '../slices/UserSlice'
+import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, setRegisterNotifyTrue, setLoginNotifyTrue } from '../slices/UserSlice'
 
 
 export const login = (email, password) => async (dispatch) => {
@@ -13,17 +13,16 @@ export const login = (email, password) => async (dispatch) => {
             }
         };
 
-        console.log({email, password})
 
         const { data } = await axios.post(`http://localhost:4000/api/v1/login`, { email, password }, config)
 
-        localStorage.setItem('token', data.token) 
-        
+        localStorage.setItem('token', data.token)
+
         dispatch(loginSuccess(data))
+        dispatch(setLoginNotifyTrue())
     }
     catch (err) {
-            dispatch(loginFail(err.response.data.message));
-            dispatch(loginFail("An error occurred."));
+        dispatch(loginFail(err.response.data.message));
     }
 }
 
@@ -33,18 +32,12 @@ export const register = (userData) => async (dispatch) => {
 
         dispatch(registerRequest())
 
-
-        const config = { headers: { "Content-Type": "multipart/form-data" } };
-
-
-
-        const { data } = await axios.post(`http://localhost:4000/api/v1/register`, userData, config)
+        const { data } = await axios.post(`http://localhost:4000/api/v1/register`, userData)
 
         localStorage.setItem('token', data.token)
 
-        console.log(data, "user registered and logged in");
-
-        dispatch(registerSuccess(data))
+        dispatch(registerSuccess(data));
+        dispatch(setRegisterNotifyTrue());
 
     } catch (err) {
         dispatch(registerFail(err.response.data.message))
@@ -65,6 +58,8 @@ export const isLogin = () => async (dispatch) => {
         const { data } = await axios.get(`http://localhost:4000/api/v1/isLogin`, config);
 
         dispatch(setIsLoginTrue())
+        
+   
 
     } catch (err) {
         dispatch(setIsLoginFalse())

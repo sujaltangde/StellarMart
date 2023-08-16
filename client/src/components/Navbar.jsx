@@ -6,7 +6,7 @@ import {FaBars} from 'react-icons/fa'
 import {RxCross1} from 'react-icons/rx'
 import {RiLogoutCircleRLine} from 'react-icons/ri'
 import { useDispatch, useSelector } from "react-redux"
-import { setIsLoginFalse } from '../slices/UserSlice'
+import { setIsLoginFalse, setLogoutNotifyTrue } from '../slices/UserSlice'
 
 
 
@@ -22,6 +22,8 @@ export const Navbar = () => {
   const logOut = () => {
        localStorage.removeItem('token')
        dispatch(setIsLoginFalse())
+       dispatch(setLogoutNotifyTrue())
+       
   }
 
   
@@ -47,7 +49,7 @@ export const Navbar = () => {
              
               {isLogin?  
               
-              <span onClick={()=>logOut()}  className='flex cursor-pointer font-medium gap-1 justify-center items-center md:text-sm text-xs rounded border  p-1'>Logout<RiLogoutCircleRLine  className=' cursor-pointer ' size={20} /></span> : 
+             <RiLogoutCircleRLine onClick={()=>logOut()}  className='hover:text-orange-400 cursor-pointer ' size={20} /> : 
               
               <Link to="/auth" className='hover:text-orange-400' > <MdAccountBox size={25} /> </Link> }
 
