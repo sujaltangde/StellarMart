@@ -1,5 +1,5 @@
 const User = require('../models/userModel.js')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 const { createToken } = require('../middleware/auth.js')
 const sendEmail = require('../utils/sendEmail.js')
 const crypto = require("crypto")
@@ -19,8 +19,7 @@ exports.registerUser = async (req, res, next) => {
 
         const { name, email, password } = req.body;
         
-
-        const hashPass = await bcrypt.hash(password, 10)
+		const hashPass = await bcrypt.hash(password, 10)
         const user = await User.create({
             name,
             email,
@@ -51,7 +50,8 @@ exports.registerUser = async (req, res, next) => {
 
 // Login User
 exports.loginUser = async (req, res) => {
-    try {
+    try {   
+    
        
         const { email, password } = req.body;
      
@@ -72,8 +72,7 @@ exports.loginUser = async (req, res) => {
             })
         }
       
-        const isMatch = await bcrypt.compare(password, user.password);
-
+        const isMatch = await bcrypt.compare(password,user.password)
         if (!isMatch) {
             return res.status(400).json({
                 success: false,

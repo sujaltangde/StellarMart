@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const crypto = require("crypto")
+const bcrypt = require("bcrypt")
 
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     name:{
         type: String,
@@ -19,8 +20,7 @@ const userSchema = mongoose.Schema({
     },
     password:{
         type: String,
-        required: [true, "Please enter a apassword"],
-        mingLenght:[6, "Password should be greater than 6 charecters"]
+        required: [true, "Please enter a apassword"]
     },
     avtar:[
         {
@@ -38,10 +38,19 @@ const userSchema = mongoose.Schema({
         type: String,
         default: "user"
     },
+    createdAt:{
+        type: Date,
+        default: Date.now
+    },
 
     resetPasswordToken: String,
     resetPasswordExpire: Date
 })
+
+
+
+
+
 
 // Genrating Password Reset Token
 userSchema.methods.getResetPasswordToken = function() {

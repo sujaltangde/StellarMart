@@ -4,7 +4,6 @@ import { MdOutlineTagFaces } from 'react-icons/md'
 import { MetaData } from '../components/MetaData.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, register } from '../actions/userAction.js';
-import {setUserExistErrFalse, setWrongCredentialsErrFalse, setLoginNotifyTrue, setRegisterNotifyTrue} from '../slices/UserSlice.js'
 import {useNavigate} from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,11 +14,10 @@ import {AiOutlineEyeInvisible} from 'react-icons/ai'
 
 export const LoginSignUp = () => {
   
-  const UserExistErrorNotify = () => toast.error("User already exist !");
-  const WrongCredentialsErrNotify = () => toast.error("Wrong Credentials !");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading , error, userExistErr, wrongCredentialsErr, isLogin } = useSelector((state) => state.user)
+  const { loading , isLogin } = useSelector((state) => state.user)
   const [name, setName] = useState("Login")
 
   // Login States
@@ -46,7 +44,7 @@ export const LoginSignUp = () => {
     const userForm = {
       name: userName,
       email: registerEmail,
-      password: registerEmail,
+      password: registerPassword,
       avatar: avatar
     } 
     
@@ -54,18 +52,7 @@ export const LoginSignUp = () => {
     
   }
 
-  if(userExistErr){
-    UserExistErrorNotify()
-    setTimeout(()=>{
-      dispatch(setUserExistErrFalse())
-    },3000) 
-  }
-  if(wrongCredentialsErr){
-    WrongCredentialsErrNotify()
-    setTimeout(()=>{
-      dispatch(setWrongCredentialsErrFalse())
-    },3000) 
-  }
+  
 
   const imageChange = (e) => {
     if (e.target.name === "avatar") {

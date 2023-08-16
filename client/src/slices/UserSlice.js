@@ -3,126 +3,108 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const userSlice = createSlice({
     name: "user",
-    initialState:{
+    initialState: {
         loading: false,
         isAuthenticated: false,
         user: null,
         error: null,
-        userExistErr: false,
-        wrongCredentialsErr: false,
         isLogin: false,
-        loginNotify: false,
-        registerNotify: false,
-        logoutNotify: false,
-        me: null
-    },
+        me: null,
+        isUpdated: null
+        },
 
-    reducers:{
+    reducers: {
 
         loginRequest: (state) => {
-            state.loading = true ;
-            state.isAuthenticated = false ;
+            state.loading = true;
+            state.isAuthenticated = false;
         },
 
         loginSuccess: (state, action) => {
-            state.loading = false ;
-            state.isAuthenticated = true ;
-            state.user = action.payload ;
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.user = action.payload;
             state.isLogin = true
         },
- 
+
         loginFail: (state, action) => {
-            state.loading = false ;
-            state.isAuthenticated = false ;
-            state.user = null ;
-            state.error = action.payload ;
-            state.wrongCredentialsErr = true ; 
+            state.loading = false;
+            state.isAuthenticated = false;
+            state.user = null;
+            state.error = action.payload;
+            state.wrongCredentialsErr = true;
         },
         registerRequest: (state) => {
-            state.loading = true ;
-            state.isAuthenticated = false ;
+            state.loading = true;
+            state.isAuthenticated = false;
         },
 
         registerSuccess: (state, action) => {
-            state.loading = false ;
-            state.isAuthenticated = true ;
-            state.user = action.payload ;
-            state.isLogin = true ;
-        },
- 
-        registerFail: (state, action) => {
-            state.loading = false ;
-            state.isAuthenticated = false ;
-            state.user = null ;
-            state.error = action.payload ;
-            state.userExistErr = true ;
-        },
-        
-        setUserExistErrFalse: (state)=>{
-            state.userExistErr = false
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.user = action.payload;
+            state.isLogin = true;
         },
 
-        setWrongCredentialsErrFalse: (state)=>{
-            state.wrongCredentialsErr = false
+        registerFail: (state, action) => {
+            state.loading = false;
+            state.isAuthenticated = false;
+            state.user = null;
+            state.error = action.payload;
+            state.userExistErr = true;
         },
+
 
         setIsLoginTrue: (state) => {
-            state.isLogin = true 
+            state.isLogin = true
         },
 
         setIsLoginFalse: (state) => {
-            state.isLogin = false 
+            state.isLogin = false
         },
 
-        setLoginNotifyTrue: (state) => {
-            state.loginNotify = true 
-        },
 
-        setLoginNotifyFalse: (state) => {
-            state.loginNotify = false 
-        },
 
-        setRegisterNotifyTrue: (state) => {
-            state.registerNotify = true 
-        },
-
-        setRegisterNotifyFalse: (state) => {
-            state.registerNotify = false 
-        },
-
-        setLogoutNotifyTrue: (state) => {
-            state.logoutNotify = true 
-        },
-
-        setLogoutNotifyFalse: (state) => {
-            state.logoutNotify = false 
-        },
-        
         getMeRequest: (state) => {
             state.loading = true
         },
-        getMeSuccess: (state,action) => {
-            state.loading = false  ;
-            state.me = action.payload ;
+        getMeSuccess: (state, action) => {
+            state.loading = false;
+            state.me = action.payload;
         },
-        getMeFail: (state,action) => {
+        getMeFail: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+            state.me = null;
+        },
+
+
+        updateProfileRequest: (state) => {
+            state.loading = true
+        },
+        updateProfileSuccess: (state, action) => {
             state.loading = false ;
-            state.error = action.payload ;
-            state.me = null ;
+            state.isUpdated = action.payload
         },
+        updateProfileFail: (state, action) => {
+            state.loading = false ;
+            state.error = action.payload
+        },
+        updateProfileReset: (state, action) => {
+            state.isUpdated = false
+        },
+
 
 
         clearErrors: (state) => {
-            state.error = null ;
+            state.error = null;
         },
 
     }
 })
 
-export const { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setUserExistErrFalse, setWrongCredentialsErrFalse, setIsLoginTrue, setIsLoginFalse, setLoginNotifyTrue,
-    setLoginNotifyFalse, setRegisterNotifyTrue, setRegisterNotifyFalse, setLogoutNotifyTrue, setLogoutNotifyFalse, 
-    getMeRequest, 
-    getMeSuccess,
-     getMeFail } = userSlice.actions ;
+export const { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors,  setIsLoginTrue, setIsLoginFalse, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail,
+updateProfileReset
+} = userSlice.actions;
 
 export default userSlice.reducer
