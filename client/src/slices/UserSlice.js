@@ -10,7 +10,7 @@ const userSlice = createSlice({
         error: null,
         isLogin: false,
         me: null,
-        isUpdated: null
+        isUpdated: false ,
         },
 
     reducers: {
@@ -84,7 +84,7 @@ const userSlice = createSlice({
         },
         updateProfileSuccess: (state, action) => {
             state.loading = false ;
-            state.isUpdated = action.payload
+            state.isUpdated = true
         },
         updateProfileFail: (state, action) => {
             state.loading = false ;
@@ -95,6 +95,17 @@ const userSlice = createSlice({
         },
 
 
+        changePasswordRequest: (state) => {
+            state.loading = true
+        },
+        changePasswordSuccess: (state) => {
+            state.loading = false
+        },
+        changePasswordFail: (state,action) => {
+            state.loading = false ;
+            state.error = action.payload
+        },
+
 
         clearErrors: (state) => {
             state.error = null;
@@ -104,7 +115,7 @@ const userSlice = createSlice({
 })
 
 export const { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors,  setIsLoginTrue, setIsLoginFalse, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail,
-updateProfileReset
+updateProfileReset, changePasswordRequest, changePasswordSuccess, changePasswordFail
 } = userSlice.actions;
 
 export default userSlice.reducer

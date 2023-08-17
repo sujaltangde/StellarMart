@@ -4,7 +4,7 @@ const app = express()
 const fileUpload = require('express-fileupload')
 
 
-app.use(express.json())
+app.use(express.json({ limit: '10mb' }));
 app.use(cors({
 	origin: "*",
 	credentials: true

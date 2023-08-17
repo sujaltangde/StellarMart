@@ -272,7 +272,7 @@ exports.updatePassword = async (req,res) => {
         if(req.body.newPassword !== req.body.confirmPassword){
             return res.status(400).json({
                 success: false,
-                message: "Password does'nt match"
+                message: "Password does not match"
             })
         } 
 
@@ -304,7 +304,12 @@ exports.updatePassword = async (req,res) => {
 
 // Update User Profile
 exports.updateProfile = async (req,res) => {
-    try{
+    try{    
+
+        const logUser = await User.findById(req.user._id) ;
+        const imageId = logUser.avtar[0].public_id ;
+
+        await cloudinary.v2.uploader.destroy(imageId)
 
         const { newName , newEmail, newImage} = req.body ;
         const myCloud = await cloudinary.v2.uploader.upload(newImage,{
@@ -321,9 +326,8 @@ exports.updateProfile = async (req,res) => {
             }
             
         }
-
-        // I will add cloudinary latar
-
+    
+    
         const user = await User.findByIdAndUpdate(req.user._id,newUserData,{
             new: true,
             runValidators: true,

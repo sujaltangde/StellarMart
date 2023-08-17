@@ -4,7 +4,6 @@ import { MdOutlineTagFaces } from 'react-icons/md'
 import { AiOutlineMail } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { Loader } from '../components/Loader'
-import { toast } from 'react-toastify'
 import { updateMe } from '../actions/userAction'
 
 

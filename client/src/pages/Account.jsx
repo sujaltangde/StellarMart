@@ -71,7 +71,7 @@ export const Account = () => {
                           My Orders
 
                         </Link>
-                        <Link to="/changePassword" className='hover:bg-gray-700 bg-gray-800 w-1/2 text-white text-center py-2 font-semibold text-sm'>
+                        <Link to="/updatePassword" className='hover:bg-gray-700 bg-gray-800 w-1/2 text-white text-center py-2 font-semibold text-sm'>
                           Change Password
 
                         </Link>

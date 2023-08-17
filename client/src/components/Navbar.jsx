@@ -70,7 +70,7 @@ export const Navbar = () => {
           </div>
 
       </div>
-      <div className={`${toggle? "hidden" : "flex"  } fixed top-12 nav `} >
+      <div className={`${toggle? "hidden" : "flex"  } md:hidden fixed top-12 nav `} >
             <div className='bg-blue-950 w-screen h-screen bg-opacity-95 z-20 pt-16'>
             <ul className='gap-20  flex flex-col text-white   text-2xl justify-center items-center'>
               <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' to="/">Home</Link>

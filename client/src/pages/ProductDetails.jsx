@@ -15,7 +15,6 @@ const images = [{
 }]
 
 
-
 export const ProductDetails = () => {
 
 
@@ -47,7 +46,7 @@ export const ProductDetails = () => {
     }
 
     const increaseQuantity = () => {
-        if (product.Stock <= quantity) return;
+        if (product.stock <= quantity) return;
 
         const qty = quantity + 1;
         setQuantity(qty);
@@ -59,11 +58,6 @@ export const ProductDetails = () => {
         const qty = quantity - 1;
         setQuantity(qty);
     };
-
-
-
-    // console.log(product)
-
 
 
     return (
@@ -120,10 +114,11 @@ export const ProductDetails = () => {
                                             <div className="flex justify-center items-center">
 
                                                 <button className='px-2  font-bold text-xl bg-black text-white' onClick={decreaseQuantity}>-</button>
-                                                <input readOnly type="number" className='text-center outline-none font-bold w-14  ' value={quantity} />
+                                                <input readOnly type="number" className='text-center outline-none font-bold w-14 cursor-default ' value={quantity} />
                                                 <button className='px-2  font-bold text-xl bg-black text-white' onClick={increaseQuantity}>+</button>
 
                                             </div>
+                                           
 
                                             <button className='bg-blue-600 text-white text-xl font-medium px-3 rounded py-1'
                                                 disabled={product.Stock < 1 ? true : false}

@@ -17,16 +17,17 @@ import { Account } from "./pages/Account"
 import {me} from './actions/userAction.js'
 import { ToastContainer, toast } from 'react-toastify';
 import { UpdateProfile } from "./pages/UpdateProfile"
+import { UpdatePassword } from "./pages/UpdatePassword"
 
 
 function App() {
 
   const dispatch = useDispatch()
-  const {isLogin} = useSelector(state => state.user)
+  const {isLogin, isUpdated} = useSelector(state => state.user)
 
   useEffect(()=>{
     dispatch(me()) ;
-  },[dispatch, isLogin])
+  },[dispatch, isLogin, isUpdated])
  
 
   useEffect(() => {
@@ -63,6 +64,10 @@ function App() {
               <Route path="/auth" element={<LoginSignUp />} />
              
               <Route path="/updateProfile" element={<UpdateProfile/>} />
+              
+              
+              <Route path="/updatePassword" element={<UpdatePassword/>} />
+
               
 
 
