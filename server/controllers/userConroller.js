@@ -255,7 +255,7 @@ exports.isLogin = async (req,res) => {
 
 
 // Update User Password
-exports.updatePassword = async (req,res) => {
+exports.updatePassword = async (req,res) => { 
     try{
         const user = await User.findById(req.user.id) ;
 
@@ -305,9 +305,21 @@ exports.updatePassword = async (req,res) => {
 // Update User Profile
 exports.updateProfile = async (req,res) => {
     try{
+
+        const { newName , newEmail, newImage} = req.body ;
+        const myCloud = await cloudinary.v2.uploader.upload(newImage,{
+            folder: 'avatars',
+            width: 150,
+            crop: "scale",
+        })
         const newUserData = {
-            name: req.body.newName,
-            email: req.body.newEmail
+            name: newName,
+            email: newEmail,
+            avtar: {
+                public_id: myCloud.public_id,
+                url: myCloud.secure_url,
+            }
+            
         }
 
         // I will add cloudinary latar

@@ -9,11 +9,7 @@ import {MetaData} from '../components/MetaData'
 
 export const Account = () => {
 
-  const { me, isLogin, loading } = useSelector((state) => state.user)
-
-  const navigate = useNavigate();
-
- 
+  const { me, isLogin, loading } = useSelector((state) => state.user) ; 
 
 
 
@@ -51,7 +47,7 @@ export const Account = () => {
                       <div className='md:pb-12 pb-6 pt-2'>
                         <img src={me.avtar[0].url} className='h-72 w-72 rounded-full shadow-md shadow-gray-700' />
                       </div>
-                      <Link className='hover:bg-blue-700 bg-blue-800 text-white font-medium px-16 py-2'>
+                      <Link to="/updateProfile" className='hover:bg-blue-700 bg-blue-800 text-white font-medium px-16 py-2'>
                         Edit Profile
                       </Link>
                     </div>
@@ -75,7 +71,7 @@ export const Account = () => {
                           My Orders
 
                         </Link>
-                        <Link to="/orders" className='hover:bg-gray-700 bg-gray-800 w-1/2 text-white text-center py-2 font-semibold text-sm'>
+                        <Link to="/changePassword" className='hover:bg-gray-700 bg-gray-800 w-1/2 text-white text-center py-2 font-semibold text-sm'>
                           Change Password
 
                         </Link>

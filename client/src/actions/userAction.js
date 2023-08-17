@@ -132,6 +132,29 @@ export const me = () => async (dispatch) => {
 }
 
 
+export const updateMe = () => async (dispatch)=>{
+
+        try{
+            dispatch(updateProfileRequest()) ;
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.put("http://localhost:4000/api/v1/me/update",userData,config) ;
+
+        dispatch(updateProfileSuccess(data)) ;
+        toast.success("User Updated")
+        }catch(err){
+            dispatch(updateProfileFail(err.response.data.message)) ;
+            toast.error(err.response.data.message)
+        }
+
+}
+
+
 // Clearing Errors
 export const clearError = () => async (dispatch) => {
     dispatch(clearErrors())

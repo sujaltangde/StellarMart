@@ -17,7 +17,7 @@ export const Product = ({ product }) => {
   return (
     <>
 
-      <Link to={`/${product._id}`} >
+      <Link to={`/product/${product._id}`} >
         <div className='rounded hover:shadow-md hover:shadow-gray-300 hover:translate-y-1  border  '>
 
           <div className='  flex justify-center items-center  '>

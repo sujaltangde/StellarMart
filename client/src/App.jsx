@@ -16,6 +16,7 @@ import { Orders } from "./pages/Orders"
 import { Account } from "./pages/Account"
 import {me} from './actions/userAction.js'
 import { ToastContainer, toast } from 'react-toastify';
+import { UpdateProfile } from "./pages/UpdateProfile"
 
 
 function App() {
@@ -45,10 +46,10 @@ function App() {
             <Navbar />
             <Routes>
 
-              <Route exact path="/" element={<Home/>} />
               <Route path="*" element={<NotFound/>} />
+              <Route exact path="/" element={<Home/>} />
+              <Route path="/product/:id" element={<ProductDetails/>}  />
               <Route path="/about" element={<About/>} />
-              <Route path="/:id" element={<ProductDetails/>}  />
               <Route path="/loader" element={<Loader/>} />
 
               <Route path="/dashboard" element={<Dashboard/>} />
@@ -60,6 +61,8 @@ function App() {
               
              
               <Route path="/auth" element={<LoginSignUp />} />
+             
+              <Route path="/updateProfile" element={<UpdateProfile/>} />
               
 
 
