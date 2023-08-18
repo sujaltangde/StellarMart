@@ -47,7 +47,7 @@ export const Cart = () => {
             toast.info("Please log in to proceed with checkout.")
         }
        else{
-        navigate("/shipping") ;
+        navigate("/order/shipping") ;
        }
     }
 

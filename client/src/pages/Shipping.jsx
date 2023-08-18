@@ -8,6 +8,8 @@ import { AiOutlineHome, AiOutlinePhone } from 'react-icons/ai'
 import { BiSolidCity, BiWorld } from 'react-icons/bi'
 import { TbMapPinCode } from 'react-icons/tb'
 import { SlLocationPin } from 'react-icons/sl'
+import { CheckoutSteps } from '../components/CheckoutSteps'
+import { toast } from 'react-toastify';
 
 export const Shipping = () => {
 
@@ -33,17 +35,25 @@ export const Shipping = () => {
 
     const shippingSubmit = (e) => {
         e.preventDefault()
-        console.log(country, state)
+        
+        if(phoneNo.length < 10 || phoneNo.length > 10){
+            toast.error("Please enter a 10-digit phone number.") ;
+            return ;
+        }
+        dispatch(saveShipInfo({address, city, state, country, pinCode, phoneNo}))
+        navigate("/order/confirm")
     }
 
 
 
     return (
         <>
-            <MetaData title="Shipping" />
+            <MetaData title="Shipping Details" />
 
-            <div className='min-h-screen pt-14'>
+
+            <div className='min-h-screen pt-14 pb-14'>
                 <div>
+            <div className="pt-3"><CheckoutSteps activeStep={0} /></div>
 
                     <form encType='multiport/form-data' onSubmit={shippingSubmit}>
                         <div className=' w-full flex flex-col md:px-0 px-5 justify-center items-center pt-8 '>
@@ -97,12 +107,12 @@ export const Shipping = () => {
                                     </div>
                                     <div className='relative px-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
                                         <BiWorld className='text-gray-500' size={26} />
-                                        <select required onChange={(e) => setCountry(e.target.value)} className='w-full bg-white pl-4 outline-none py-1 pr-4'>
-                                            <option className='bg-white' value="">Country</option>
+                                        <select  required onChange={(e) => setCountry(e.target.value)} className='w-full  bg-white pl-4 outline-none py-1 pr-4'>
+                                            <option className='bg-white '  value="">Country</option>
                                             {
                                                 Country &&
                                                 Country.getAllCountries().map((item) => (
-                                                    <option className='bg-white' key={item.isoCode} value={item.isoCode}>
+                                                    <option className='bg-white ' key={item.isoCode} value={item.isoCode}>
                                                         {item.name}
                                                     </option>
 
