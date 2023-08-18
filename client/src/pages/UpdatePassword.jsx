@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MetaData } from '../components/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { Loader } from '../components/Loader'
-import { AiOutlineEyeInvisible,AiOutlineLock,AiOutlineEye, AiOutlineUnlock } from 'react-icons/ai'
+import { AiOutlineEyeInvisible, AiOutlineLock, AiOutlineEye, AiOutlineUnlock } from 'react-icons/ai'
 import { BiKey } from 'react-icons/bi'
 import { changePassword } from '../actions/userAction'
 
@@ -12,11 +12,11 @@ export const UpdatePassword = () => {
 
     const { loading } = useSelector(state => state.user)
 
-    const dispatch = useDispatch() ;
+    const dispatch = useDispatch();
 
-    const [oldPassword, setOldPass] = useState("") ;
-    const [newPassword, setNewPass] = useState("") ;
-    const [confirmPassword, setConfirmPass] = useState("") ;
+    const [oldPassword, setOldPass] = useState("");
+    const [newPassword, setNewPass] = useState("");
+    const [confirmPassword, setConfirmPass] = useState("");
 
     const [onePassType, setOnePassType] = useState("password")
     const [twoPassType, setTwoPassType] = useState("password")
@@ -32,7 +32,7 @@ export const UpdatePassword = () => {
         }
         dispatch(changePassword(changePassData))
     }
-    
+
     return (
         <>
             <MetaData title="Change Password" />
@@ -44,7 +44,7 @@ export const UpdatePassword = () => {
                         <p className='text-2xl text-center py-4 font-medium'>Change Password</p>
                         <div className='px-8 flex flex-col gap-5 py-3 pb-10'>
 
-                            
+
 
 
                             <div className='relative px-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
@@ -52,15 +52,15 @@ export const UpdatePassword = () => {
                                 <input
                                     type={onePassType}
                                     placeholder='Old Password'
-                                    required                   
-                                    onChange={(e)=>setOldPass(e.target.value)}
+                                    required
+                                    onChange={(e) => setOldPass(e.target.value)}
                                     className=' w-full pl-4 outline-none py-1 pr-4'
                                 />
-                              
+
                                 {onePassType === "password" ?
                                     <AiOutlineEyeInvisible onClick={() => setOnePassType("text")} className='text-gray-500 cursor-pointer' size={26} /> :
                                     <AiOutlineEye onClick={() => setOnePassType("password")} className='text-gray-500 cursor-pointer' size={26} />
-                                    
+
                                 }
                             </div>
                             <div className='relative px-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
@@ -68,15 +68,15 @@ export const UpdatePassword = () => {
                                 <input
                                     type={twoPassType}
                                     placeholder='New Password'
-                                    required            
-                                    onChange={(e)=>setNewPass(e.target.value)}       
+                                    required
+                                    onChange={(e) => setNewPass(e.target.value)}
                                     className=' w-full pl-4 outline-none py-1 pr-4'
                                 />
-                              
+
                                 {twoPassType === "password" ?
                                     <AiOutlineEyeInvisible onClick={() => setTwoPassType("text")} className='text-gray-500 cursor-pointer' size={26} /> :
                                     <AiOutlineEye onClick={() => setTwoPassType("password")} className='text-gray-500 cursor-pointer' size={26} />
-                                    
+
                                 }
                             </div>
                             <div className='relative px-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
@@ -84,15 +84,15 @@ export const UpdatePassword = () => {
                                 <input
                                     type={threePassType}
                                     placeholder='Confirm Password'
-                                    required                   
+                                    required
                                     className=' w-full pl-4 outline-none py-1 pr-4'
-                                    onChange={(e)=>setConfirmPass(e.target.value)}
+                                    onChange={(e) => setConfirmPass(e.target.value)}
                                 />
-                              
+
                                 {threePassType === "password" ?
                                     <AiOutlineEyeInvisible onClick={() => setThreePassType("text")} className='text-gray-500 cursor-pointer' size={26} /> :
                                     <AiOutlineEye onClick={() => setThreePassType("password")} className='text-gray-500 cursor-pointer' size={26} />
-                                    
+
                                 }
                             </div>
 

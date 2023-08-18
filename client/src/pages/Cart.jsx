@@ -10,8 +10,6 @@ export const Cart = () => {
 
     const dispatch = useDispatch()
 
-    const [quantity, setQuantity] = useState();
-
     const { cartItems } = useSelector((state) => state.cart)
     const { isLogin } = useSelector((state) => state.user)
 
@@ -45,10 +43,12 @@ export const Cart = () => {
 
     const handleCheckOut = () => {
         if(isLogin === false){
-            navigate("/auth") ;
+           
             toast.info("Please log in to proceed with checkout.")
         }
-        toast.info("success")
+       else{
+        navigate("/shipping") ;
+       }
     }
 
     return (

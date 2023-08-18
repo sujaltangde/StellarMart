@@ -20,6 +20,7 @@ import { UpdateProfile } from "./pages/UpdateProfile"
 import { UpdatePassword } from "./pages/UpdatePassword"
 import {Contact} from './pages/Contact'
 import { Cart } from "./pages/Cart"
+import { Shipping } from "./pages/Shipping"
 
 
 function App() {
@@ -73,6 +74,8 @@ function App() {
               <Route path="/cart" element={<Cart/>} />
 
               <Route path="/contact" element={<Contact/>} />
+
+              <Route path="/shipping" element={<Shipping/>} />
 
               
 

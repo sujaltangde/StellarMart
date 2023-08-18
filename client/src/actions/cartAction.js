@@ -1,4 +1,4 @@
-import { addToCart, removeFromCart, removeAllItems } from '../slices/CartSlice'
+import { addToCart, removeFromCart, removeAllItems, saveShippingInfo } from '../slices/CartSlice'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
@@ -41,4 +41,11 @@ export const removeAllItemsFromCart = () => async (dispatch) => {
 export const removeAllItemsFromCartWhenLogout = () => async (dispatch) => {    
     localStorage.removeItem('cartItems') ;
     dispatch(removeAllItems())
+}
+
+export const saveShipInfo = (data) => async (dispatch) => {
+    dispatch(saveShippingInfo(data)) ;
+
+    localStorage.setItem('shippingInfo', JSON.stringify(data))
+
 }
