@@ -9,18 +9,11 @@ import { ReviewCard } from '../components/ReviewCard';
 import { BiComment } from 'react-icons/bi'
 import { Loader } from '../components/Loader.jsx'
 import { MetaData } from '../components/MetaData';
+import {addItemsToCart} from '../actions/cartAction'
 
-const images = [{
-    url: "sdsd"
-}]
 
 
 export const ProductDetails = () => {
-
-
-    const images = [{
-        url: "sdsd"
-    }]
 
     const { id } = useParams();
 
@@ -58,6 +51,11 @@ export const ProductDetails = () => {
         const qty = quantity - 1;
         setQuantity(qty);
     };
+
+    const addToCartHandler = () => {
+        dispatch(addItemsToCart(id,quantity))
+    }
+
 
 
     return (
@@ -120,10 +118,8 @@ export const ProductDetails = () => {
                                             </div>
                                            
 
-                                            <button className='bg-blue-600 text-white text-xl font-medium px-3 rounded py-1'
-                                                disabled={product.Stock < 1 ? true : false}
-                                            // onClick={addToCartHandler}
-                                            >
+                                            <button onClick={addToCartHandler} className='bg-blue-600 text-white text-xl font-medium px-3 rounded py-1'
+                                                disabled={product.Stock < 1 ? true : false}                                            >
                                                 Add to Cart
                                             </button>
 

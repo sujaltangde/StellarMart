@@ -44,7 +44,7 @@ export const Navbar = () => {
               
             </ul>
             <ul className='flex md:gap-8 gap-8 md:pr-9 pr-1 justify-center items-center'>
-              <Link className='hover:text-orange-400 ' > <FiShoppingBag size={25} /> </Link>
+              <Link to="/cart" className='hover:text-orange-400 ' > <FiShoppingBag size={25} /> </Link>
               
               
               {isLogin?  

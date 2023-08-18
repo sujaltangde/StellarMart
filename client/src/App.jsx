@@ -18,6 +18,7 @@ import {me} from './actions/userAction.js'
 import { ToastContainer, toast } from 'react-toastify';
 import { UpdateProfile } from "./pages/UpdateProfile"
 import { UpdatePassword } from "./pages/UpdatePassword"
+import { Cart } from "./pages/Cart"
 
 
 function App() {
@@ -67,6 +68,8 @@ function App() {
               
               
               <Route path="/updatePassword" element={<UpdatePassword/>} />
+
+              <Route path="/cart" element={<Cart/>} />
 
               
 
