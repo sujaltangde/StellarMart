@@ -1,23 +1,11 @@
 import React from 'react'
 import { MetaData } from '../components/MetaData'
-import { useSelector, useDispatch } from 'react-redux'
-import { numIncr, numDecr } from '../slices/NumSlice'
 
 
 
 export const About = () => {
-    
-    const value = useSelector((state)=>state.num.value)
-    const dispatch = useDispatch()
+  
 
-
-    const handleIncr = ()=>{
-        dispatch(numIncr())
-    }
-
-    const handleDecr = ()=>{
-        dispatch(numDecr())
-    }
 
     return (
         <>
@@ -25,13 +13,6 @@ export const About = () => {
             <div className='pt-16 min-h-screen'>
                 <MetaData title={"About"} />
                 <div className='md:px-14 px-4 pb-20'>
-{/* 
-                    <div>
-                                {value}
-                                <button onClick={()=>handleIncr()} >Incr</button>
-                                <button onClick={()=>handleDecr()} >Decr</button>
-                    </div> */}
-
                     <p className='pt-8 font-bold text-3xl text-blue-900'>About StellarMart</p>
 
                     <p className='pt-6'> Welcome to StellarMart, your premier destination for an exceptional online shopping experience. At StellarMart, we believe in bringing the universe of quality products right to your fingertips.</p>

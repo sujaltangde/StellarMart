@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {FiShoppingBag} from 'react-icons/fi'
+import {AiOutlineShoppingCart} from 'react-icons/ai'
 import {MdAccountBox} from 'react-icons/md'
 import {FaBars} from 'react-icons/fa'
 import {RxCross1} from 'react-icons/rx'
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { UserOptions } from './UserOptions'
 
 
@@ -14,6 +14,7 @@ export const Navbar = () => {
  
   
   const {isLogin} = useSelector(state => state.user)
+  const {cartItems} = useSelector(state => state.cart)
 
   
 
@@ -39,12 +40,12 @@ export const Navbar = () => {
             <ul className='gap-12 pr-8 md:flex hidden   text-xl justify-center items-center'>
               <Link className='hover:text-orange-400' to="/">Home</Link>
               <Link className='hover:text-orange-400' to="/products" >Products</Link>
-              <Link className='hover:text-orange-400' >Contact</Link>
+              <Link className='hover:text-orange-400' to="/contact" >Contact</Link>
               <Link className='hover:text-orange-400'  to="/about" >About</Link>
               
             </ul>
             <ul className='flex md:gap-8 gap-8 md:pr-9 pr-1 justify-center items-center'>
-              <Link to="/cart" className='hover:text-orange-400 ' > <FiShoppingBag size={25} /> </Link>
+              <Link to="/cart" className={`hover:text-orange-400 ${cartItems.length !== 0? "text-green-400" : ''} `} > <AiOutlineShoppingCart size={25} /> </Link>
               
               
               {isLogin?  
@@ -75,7 +76,7 @@ export const Navbar = () => {
             <ul className='gap-20  flex flex-col text-white   text-2xl justify-center items-center'>
               <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' to="/">Home</Link>
               <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' to="products" >Products</Link>
-              <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' >Contact</Link>
+              <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20' to="/contact" >Contact</Link>
               <Link onClick={()=>setToggle(!toggle)}  className='hover:text-orange-400 z-20'  to="/about" >About</Link>
               
             </ul>

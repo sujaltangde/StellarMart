@@ -10,6 +10,8 @@ import { BiComment } from 'react-icons/bi'
 import { Loader } from '../components/Loader.jsx'
 import { MetaData } from '../components/MetaData';
 import {addItemsToCart} from '../actions/cartAction'
+import { toast } from 'react-toastify'
+
 
 
 
@@ -54,6 +56,12 @@ export const ProductDetails = () => {
 
     const addToCartHandler = () => {
         dispatch(addItemsToCart(id,quantity))
+        if(quantity == 1){
+            toast.success("Item added to cart")
+        }
+        else{
+            toast.success("Items added to cart")
+        }
     }
 
 

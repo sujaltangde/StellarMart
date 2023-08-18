@@ -17,7 +17,7 @@ export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
     }))
 
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-    toast.success("Items added to cart")
+    
 }
 
 
@@ -29,10 +29,16 @@ export const removeItemsFromCart = (id) => async (dispatch) => {
 
     localStorage.setItem('cartItems', JSON.stringify(modifiedItems))
     dispatch(removeFromCart());
-    toast.error("Item removed")
+    toast.success("Item removed")
 }
 
 export const removeAllItemsFromCart = () => async (dispatch) => {    
+    localStorage.removeItem('cartItems') ;
+    dispatch(removeAllItems())
+    toast.success("All items removed")
+}
+
+export const removeAllItemsFromCartWhenLogout = () => async (dispatch) => {    
     localStorage.removeItem('cartItems') ;
     dispatch(removeAllItems())
 }

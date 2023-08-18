@@ -4,12 +4,12 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setIsLoginFalse } from '../slices/UserSlice'
-import {AiOutlineShoppingCart} from 'react-icons/ai'
+import {BsCartCheck} from 'react-icons/bs'
 import {FaRegUserCircle} from 'react-icons/fa'
 import {LuLayoutDashboard} from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-
+import { removeAllItemsFromCartWhenLogout } from '../actions/cartAction'
 
 export const UserOptions = () => {
 
@@ -22,6 +22,7 @@ export const UserOptions = () => {
     const logOut = () => {
         toast.success("Logout Successful !");
         localStorage.removeItem('token')
+        dispatch(removeAllItemsFromCartWhenLogout())
         dispatch(setIsLoginFalse())
         navigate('/')
    }
@@ -48,7 +49,7 @@ export const UserOptions = () => {
                                 <Link to="/dashboard" className='bg-white border hover:bg-gray-300 p-2 rounded-full shadow-md shadow-gray-700 '><LuLayoutDashboard className=' cursor-pointer  ' size={28} /> </Link> : null }                               
 
                                 {/*  Orders   */}
-                                <Link to="/orders" className='bg-white border hover:bg-gray-300 p-2 rounded-full shadow-md shadow-gray-700 '><AiOutlineShoppingCart  className='cursor-pointer ' size={28} /></Link>
+                                <Link to="/orders" className='bg-white border hover:bg-gray-300 p-2 rounded-full shadow-md shadow-gray-700 '><BsCartCheck  className='cursor-pointer ' size={28} /></Link>
 
                                 {/*  Profile   */}
                                 <Link to="/account" className='bg-white border hover:bg-gray-300 p-2 rounded-full shadow-md shadow-gray-700 '><FaRegUserCircle className=' cursor-pointer ' size={28}  /></Link>
