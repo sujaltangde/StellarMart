@@ -62,3 +62,9 @@ input[type="number"]{
     transform: translateX(100%);
 }
 
+.MuiDataGrid-columnHeader{
+    background-color: rgb(3, 0, 196);
+    padding: 1vmax !important;
+    color: white;
+    font-weight: 800;
+}

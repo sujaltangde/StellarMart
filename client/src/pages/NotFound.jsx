@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 
 export const NotFound = () => {
 
-  const d = document.cookie ;
-  console.log(JSON.parse(sessionStorage.getItem('orderInfo')))
+  
 
   return (
     <>

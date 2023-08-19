@@ -8,6 +8,7 @@ exports.newOrder = async (req, res) => {
             shippingInfo,
             orderItems,
             paymentInfo,
+            itemPrice,
             taxPrice,
             shippingPrice,
             totalPrice
@@ -18,6 +19,7 @@ exports.newOrder = async (req, res) => {
             orderItems,
             paymentInfo,
             taxPrice,
+            itemPrice,
             shippingPrice,
             totalPrice,
             paidAt: Date.now(),

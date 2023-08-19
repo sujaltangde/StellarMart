@@ -26,6 +26,8 @@ import { Payment } from "./pages/Payment"
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios'
+import { OrderSuccess } from './pages/OrderSuccess'
+import {myOrders} from './actions/orderAction'
 
 
 function App() {
@@ -80,7 +82,7 @@ function App() {
         <Route path="/loader" element={<Loader />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/order/me" element={<Orders />} />
         <Route path="/account" element={<Account />} />
 
         <Route path="/products" element={<AllProducts />} />
@@ -101,16 +103,17 @@ function App() {
         <Route path="/order/shipping" element={<Shipping />} />
         <Route path="/order/confirm" element={<Confirm />} />
 
-        {stripeApiKey && 
-       
-       <Route path="/order/payment" element={
-        <Elements stripe={loadStripe(stripeApiKey)}>
-          <Payment />
-        </Elements>
-      } />
+
+        {stripeApiKey &&
+
+          <Route path="/order/payment" element={
+            <Elements stripe={loadStripe(stripeApiKey)}>
+              <Payment />
+            </Elements>
+          } />
         }
 
-
+        <Route path="/success" element={<OrderSuccess />} />
 
 
       </Routes>

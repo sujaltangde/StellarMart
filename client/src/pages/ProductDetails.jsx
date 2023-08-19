@@ -90,7 +90,7 @@ export const ProductDetails = () => {
                                                 <img src={img.url} alt="Image 1" className='rounded-xl object-cover w-44 h-90 z-0 ' />
                                             </div>
                                         ))
-
+                                        
                                         }
 
 

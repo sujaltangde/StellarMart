@@ -27,7 +27,7 @@ export const Shipping = () => {
 
 
     useEffect(() => {
-        if (!isLogin) {
+        if (isLogin === false) {
             navigate("/auth")
         }
     }, [])
@@ -35,12 +35,12 @@ export const Shipping = () => {
 
     const shippingSubmit = (e) => {
         e.preventDefault()
-        
-        if(phoneNo.length < 10 || phoneNo.length > 10){
-            toast.error("Please enter a 10-digit phone number.") ;
-            return ;
+
+        if (phoneNo.length < 10 || phoneNo.length > 10) {
+            toast.error("Please enter a 10-digit phone number.");
+            return;
         }
-        dispatch(saveShipInfo({address, city, state, country, pinCode, phoneNo}))
+        dispatch(saveShipInfo({ address, city, state, country, pinCode, phoneNo }))
         navigate("/order/confirm")
     }
 
@@ -53,7 +53,7 @@ export const Shipping = () => {
 
             <div className='min-h-screen pt-14 pb-14'>
                 <div>
-            <div className="pt-3"><CheckoutSteps activeStep={0} /></div>
+                    <div className="pt-3"><CheckoutSteps activeStep={0} /></div>
 
                     <form encType='multiport/form-data' onSubmit={shippingSubmit}>
                         <div className=' w-full flex flex-col md:px-0 px-5 justify-center items-center pt-8 '>
@@ -112,7 +112,7 @@ export const Shipping = () => {
                                     <div className='relative px-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
                                         <BiWorld className='text-gray-500' size={26} />
                                         <select value={country} required onChange={(e) => setCountry(e.target.value)} className='w-full  bg-white pl-4 outline-none py-1 pr-4'>
-                                            <option className='bg-white '  value="">Country</option>
+                                            <option className='bg-white ' value="">Country</option>
                                             {
                                                 Country &&
                                                 Country.getAllCountries().map((item) => (
