@@ -22,7 +22,7 @@ export const Cart = () => {
         })
         return sum ;
     }
-    grossTotal()
+
     const increaseQuantity = (id, quantity, stock) => {
        const newQuantity = quantity + 1 ;
        if(stock <= quantity){
@@ -43,7 +43,7 @@ export const Cart = () => {
 
     const handleCheckOut = () => {
         if(isLogin === false){
-           
+            navigate("/auth")
             toast.info("Please log in to proceed with checkout.")
         }
        else{
@@ -120,7 +120,7 @@ export const Cart = () => {
                         : (<div className='text-center flex flex-col justify-center items-center pt-16 font-medium md:text-3xl text-2xl'>Your cart is currently empty.
                             <img src="/images/emptyCart.svg" className=' w-56 md:w-64 md:h-64 h-56 ' alt="" />
                             <div className='pt-6'>
-                            <Link to="/products" className='text-white px-8 text-lg py-2 rounded bg-gray-800  ' >View Products</Link>
+                            <Link to="/products" className='text-white px-8 text-lg py-2 rounded hover:bg-gray-700 bg-gray-800  ' >View Products</Link>
                             </div>
                         </div>)
 

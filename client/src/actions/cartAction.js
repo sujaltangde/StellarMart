@@ -38,8 +38,9 @@ export const removeAllItemsFromCart = () => async (dispatch) => {
     toast.success("All items removed")
 }
 
-export const removeAllItemsFromCartWhenLogout = () => async (dispatch) => {    
+export const removeAllWhenLogout = () => async (dispatch) => {    
     localStorage.removeItem('cartItems') ;
+    localStorage.removeItem('shippingInfo') ;
     dispatch(removeAllItems())
 }
 

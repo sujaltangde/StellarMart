@@ -26,7 +26,8 @@ const cartSlice = createSlice({
             state.cartItems = JSON.parse(localStorage.getItem("cartItems")) ;
         },
         removeAllItems:(state)=>{
-            state.cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem("cartItems")) : []
+            state.cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem("cartItems")) : [] ;
+            state.shippingInfo = localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem("shippingInfo")) : {}
         },
         saveShippingInfo: (state,action)=>{
             state.shippingInfo = action.payload

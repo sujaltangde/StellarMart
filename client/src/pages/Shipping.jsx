@@ -22,7 +22,7 @@ export const Shipping = () => {
     const [city, setCity] = useState(shippingInfo.city)
     const [state, setState] = useState(shippingInfo.state)
     const [country, setCountry] = useState(shippingInfo.country)
-    const [pinCode, setPinCode] = useState(shippingInfo.pincode)
+    const [pinCode, setPinCode] = useState(shippingInfo.pinCode)
     const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo)
 
 
@@ -71,6 +71,7 @@ export const Shipping = () => {
                                             type="text"
                                             placeholder='Address'
                                             required
+                                            value={address}
                                             className=' w-full pl-4 outline-none py-1 pr-4'
                                             onChange={(e) => setAddress(e.target.value)}
                                         />
@@ -80,6 +81,7 @@ export const Shipping = () => {
                                         <input
                                             type="text"
                                             placeholder='City'
+                                            value={city}
                                             required
                                             className=' w-full pl-4 outline-none py-1 pr-4'
                                             onChange={(e) => setCity(e.target.value)}
@@ -91,6 +93,7 @@ export const Shipping = () => {
                                             type="text"
                                             placeholder='Pin Code'
                                             required
+                                            value={pinCode}
                                             className=' w-full pl-4 outline-none py-1 pr-4'
                                             onChange={(e) => setPinCode(e.target.value)}
                                         />
@@ -101,13 +104,14 @@ export const Shipping = () => {
                                             type="text"
                                             placeholder='Phone Number'
                                             required
+                                            value={phoneNo}
                                             className=' w-full pl-4 outline-none py-1 pr-4'
                                             onChange={(e) => setPhoneNo(e.target.value)}
                                         />
                                     </div>
                                     <div className='relative px-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
                                         <BiWorld className='text-gray-500' size={26} />
-                                        <select  required onChange={(e) => setCountry(e.target.value)} className='w-full  bg-white pl-4 outline-none py-1 pr-4'>
+                                        <select value={country} required onChange={(e) => setCountry(e.target.value)} className='w-full  bg-white pl-4 outline-none py-1 pr-4'>
                                             <option className='bg-white '  value="">Country</option>
                                             {
                                                 Country &&
@@ -122,7 +126,7 @@ export const Shipping = () => {
                                     </div>
                                     {country && (<div className='relative px-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
                                         <SlLocationPin className='text-gray-500' size={26} />
-                                        <select required onChange={(e) => setState(e.target.value)} className='w-full bg-white pl-4 outline-none py-1 pr-4'>
+                                        <select value={state} required onChange={(e) => setState(e.target.value)} className='w-full bg-white pl-4 outline-none py-1 pr-4'>
                                             <option className='bg-white' value="">State</option>
                                             {State &&
                                                 State.getStatesOfCountry(country).map((item) => (

@@ -9,7 +9,7 @@ import {FaRegUserCircle} from 'react-icons/fa'
 import {LuLayoutDashboard} from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { removeAllItemsFromCartWhenLogout } from '../actions/cartAction'
+import { removeAllWhenLogout } from '../actions/cartAction'
 
 export const UserOptions = () => {
 
@@ -22,7 +22,7 @@ export const UserOptions = () => {
     const logOut = () => {
         toast.success("Logout Successful !");
         localStorage.removeItem('token')
-        dispatch(removeAllItemsFromCartWhenLogout())
+        dispatch(removeAllWhenLogout())
         dispatch(setIsLoginFalse())
         navigate('/')
    }
