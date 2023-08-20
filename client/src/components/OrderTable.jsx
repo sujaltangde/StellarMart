@@ -1,10 +1,12 @@
 import React from 'react'
 import { MdLaunch } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import { getOrderDetails } from '../actions/orderAction'
+import { useDispatch } from 'react-redux'
 
 export const OrderTable = ({ orders }) => {
 
-    
+    const dispatch = useDispatch()
     const convertDateFormat = (inputDate) => {
         const parts = inputDate.split('-');
         if (parts.length !== 3) {
@@ -52,7 +54,7 @@ export const OrderTable = ({ orders }) => {
 
                     {
                         sortedOrders.map((item, index) => (
-                            <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer   ">
+                            <tr key={item._id} className="bg-white border-b hover:bg-gray-50 cursor-pointer   ">
                                 <th scope="row" className="px-6 py-4  font-medium text-gray-900 whitespace-nowrap ">
                                     {item._id}
                                 </th>
@@ -63,13 +65,15 @@ export const OrderTable = ({ orders }) => {
                                     {item.orderItems.length}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {item.totalPrice}
+                                ₹{item.totalPrice}
                                 </td>
                                 <td className="px-6 py-4">
                                     {convertDateFormat(item.createdAt.substr(0, 10))}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <Link className='hover:text-orange-500' to={`/order/${item._id}`} ><MdLaunch size={20} /></Link>
+                                    <Link onClick={()=>{
+                                        dispatch(getOrderDetails(item._id))
+                                    }} className='hover:text-orange-500' to={`/order/${item._id}`} ><MdLaunch size={20} /></Link>
                                 </td>
                             </tr>
                         ))

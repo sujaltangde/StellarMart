@@ -48,7 +48,6 @@ export const myOrders = () => async (dispatch) => {
 export const getOrderDetails = (id) => async (dispatch) => {
     try{
         dispatch(orderDetailsRequest())
-
         const config = {
             headers:{
                 Authorization: `Bearer ${localStorage.getItem('token')}`

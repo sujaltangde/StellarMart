@@ -29,6 +29,12 @@ app.use("/api/v1", user);
 app.use("/api/v1",order)
 app.use("/api/v1",payment)
 
+app.get("/api/v1/test",(req,res)=>{
+	res.json(
+		"I am working"
+	)
+})
+
 
 
 module.exports = app;

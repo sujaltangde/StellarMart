@@ -11,13 +11,13 @@ export const OrderDetails = () => {
   const dispatch = useDispatch()
   const { orderDetails, loading } = useSelector(state => state.newOrder)
 
-  console.log(orderDetails)
+  
 
-  console.log(id)
+
 
   useEffect(() => {
     dispatch(getOrderDetails(id))
-  }, [])
+  },[dispatch])
 
   const convertDateFormat = (inputDate) => {
     const parts = inputDate.split('-');
@@ -44,7 +44,7 @@ export const OrderDetails = () => {
             <>
               <div className='md:px-14 px-2 md:pt-6 pt-2'>
                 <div>
-                  <p className=' text-2xl '>Order #{orderDetails._id}</p>
+                  <p className=' text-2xl text-blue-800 '>Order #{orderDetails._id}</p>
                 </div>
                 <div className='pt-4'>
                   <p className='md:text-xl text-xl'>Shipping Info</p>
@@ -66,8 +66,8 @@ export const OrderDetails = () => {
                   </div>
                   <div className='pt-4 pb-4'>
                     <p className='md:text-xl text-xl'>Order Status</p>
-                    <ul className='pt-4'>
-                      <li><span className='font-medium' >{orderDetails.orderStatus}</span> </li>
+                    <ul className='pt-2'>
+                      <li><span className={`font-medium text-xl ${orderDetails.orderStatus === "Processing"?"text-blue-500":"text-green-500"} `} >{orderDetails.orderStatus}</span> </li>
                     </ul>
                   </div>
 

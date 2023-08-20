@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {allProductRequest, allProductSuccess, allProductFail, clearErrors } from '../slices/ProductSlice.js'
+import {allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, newReviewReset } from '../slices/ProductSlice.js'
 import {productDetailsRequest, productDetailsSuccess, productDetailsFail } from '../slices/ProductDetailSlice.js'
 import { host } from './Host.js'
 
