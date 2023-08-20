@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import {createOrderRequest, createOrderSuccess, createOrderFail, myOrderRequest, myOrderSuccess, myOrderFail} from '../slices/OrderSlice'
+import {createOrderRequest, createOrderSuccess, createOrderFail, myOrderRequest, myOrderSuccess, myOrderFail, orderDetailsRequest, orderDetailsSuccess, orderDetailsFail} from '../slices/OrderSlice'
 import axios from 'axios'
 
 // Create New Order
@@ -27,7 +27,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 // My Orders
 export const myOrders = () => async (dispatch) => {
     try{    
-
+        dispatch(myOrderRequest())
         const config = {
             headers:{
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -40,6 +40,27 @@ export const myOrders = () => async (dispatch) => {
 
     }catch(err){
         dispatch(myOrderFail(err.response.data.message))
+        toast.error(err.response.data.message)
+    }
+}
+
+// Get Order Details
+export const getOrderDetails = (id) => async (dispatch) => {
+    try{
+        dispatch(orderDetailsRequest())
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.get(`http://localhost:4000/api/v1/order/${id}`,config) ;
+
+        dispatch(orderDetailsSuccess(data.order)) ;
+        
+    }catch(err){
+        dispatch(orderDetailsFail(err.response.data.message))
         toast.error(err.response.data.message)
     }
 }

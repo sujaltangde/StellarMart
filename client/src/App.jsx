@@ -27,6 +27,7 @@ import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios'
 import { OrderSuccess } from './pages/OrderSuccess'
+import { OrderDetails } from './pages/OrderDetails'
 import {myOrders} from './actions/orderAction'
 
 
@@ -82,7 +83,7 @@ function App() {
         <Route path="/loader" element={<Loader />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/order/me" element={<Orders />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="/account" element={<Account />} />
 
         <Route path="/products" element={<AllProducts />} />
@@ -102,6 +103,9 @@ function App() {
 
         <Route path="/order/shipping" element={<Shipping />} />
         <Route path="/order/confirm" element={<Confirm />} />
+      
+        <Route path="/order/:id" element={<OrderDetails />} />
+
 
 
         {stripeApiKey &&

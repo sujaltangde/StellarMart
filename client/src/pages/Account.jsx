@@ -67,7 +67,7 @@ export const Account = () => {
                       </div>
 
                       <div className=' flex flex-col gap-3 md:pt-12 pt-2 '>
-                        <Link to="/order/me" className='hover:bg-gray-700 bg-gray-800 w-1/2 text-white text-center py-2 font-semibold text-sm'>
+                        <Link to="/orders" className='hover:bg-gray-700 bg-gray-800 w-1/2 text-white text-center py-2 font-semibold text-sm'>
                           My Orders
 
                         </Link>

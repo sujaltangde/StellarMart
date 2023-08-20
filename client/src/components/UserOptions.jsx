@@ -49,7 +49,7 @@ export const UserOptions = () => {
                                 <Link to="/dashboard" className='bg-white border hover:bg-gray-300 p-2 rounded-full shadow-md shadow-gray-700 '><LuLayoutDashboard className=' cursor-pointer  ' size={28} /> </Link> : null }                               
 
                                 {/*  Orders   */}
-                                <Link to="/order/me" className='bg-white border hover:bg-gray-300 p-2 rounded-full shadow-md shadow-gray-700 '><BsCartCheck  className='cursor-pointer ' size={28} /></Link>
+                                <Link to="/orders" className='bg-white border hover:bg-gray-300 p-2 rounded-full shadow-md shadow-gray-700 '><BsCartCheck  className='cursor-pointer ' size={28} /></Link>
 
                                 {/*  Profile   */}
                                 <Link to="/account" className='bg-white border hover:bg-gray-300 p-2 rounded-full shadow-md shadow-gray-700 '><FaRegUserCircle className=' cursor-pointer ' size={28}  /></Link>
