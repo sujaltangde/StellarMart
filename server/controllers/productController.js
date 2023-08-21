@@ -53,6 +53,24 @@ exports.getAllProducts = async (req, res) => {
 }
 
 
+// Get Admin Products
+exports.getAdminProducts = async (req, res) => {
+    try {
+        const products = await Product.find()
+
+        res.status(200).json({
+            success: true,
+            products
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+
 
 // Update product -- Admin
 exports.updateProduct = async (req, res) => {

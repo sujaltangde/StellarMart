@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail } from '../slices/ProductSlice.js'
+import {allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, adminProductRequest, adminProductSuccess, adminProductFail } from '../slices/ProductSlice.js'
 import {productDetailsRequest, productDetailsSuccess, productDetailsFail } from '../slices/ProductDetailSlice.js'
 import { toast } from 'react-toastify'
 
@@ -63,9 +63,25 @@ export const newReview = (reviewData) => async (dispatch) => {
 }
 
 
+// Get All Products For Admin
+export const getAllProductsForAdmin = () => async (dispatch) => {
+    try{    
+        dispatch(adminProductRequest()) ;
 
+        const config = {
+            headers : {
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }
 
+        const { data } = await axios.get("http://localhost:4000/api/v1/admin/products",config)
+        console.log(data)
+        dispatch(adminProductSuccess(data.products)) ;
 
+    }catch(err){
+        dispatch(adminProductFail(err.response.data.message))
+    }
+}
 
 
 

@@ -29,6 +29,7 @@ import axios from 'axios'
 import { OrderSuccess } from './pages/OrderSuccess'
 import { OrderDetails } from './pages/OrderDetails'
 import {myOrders} from './actions/orderAction'
+import { ProductList } from "./components/ProductList"
 
 
 function App() {
@@ -118,6 +119,8 @@ function App() {
         }
 
         <Route path="/success" element={<OrderSuccess />} />
+
+        <Route path="/admin/products" element={<ProductList/>} />
 
 
       </Routes>

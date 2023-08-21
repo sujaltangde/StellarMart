@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router'
 import { Sidebar } from '../components/Sidebar'
 import { BiMenuAltLeft } from 'react-icons/bi'
 import { Loader } from '../components/Loader'
-import { Pie , Line } from 'react-chartjs-2';
+import { Doughnut, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title,
   Tooltip,
@@ -78,7 +78,7 @@ export const Dashboard = () => {
                 <p>₹ 20000 </p>
               </div>
 
-              <div className='grid md:grid-cols-3 grid-cols-1 md:gap-0 gap-3 justify-items-center md:px-64 py-6'>
+              <div className='grid md:grid-cols-3 grid-cols-1 text-xl md:gap-0 gap-3 justify-items-center md:px-64 py-6'>
 
                 <div className='bg-red-500 rounded-full font-medium flex justify-center items-center text-white w-40 h-40 '>
                   <div className='flex flex-col justify-center items-center'>
@@ -109,7 +109,7 @@ export const Dashboard = () => {
 
               <div>
               <div className='mx-auto  md:w-[30vw] w-full py-5 '>
-                  <Pie  data={doughnutState} />                
+                  <Doughnut data={doughnutState} />                
               </div>
               </div>
 

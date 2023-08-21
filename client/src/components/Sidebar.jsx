@@ -5,15 +5,19 @@ import { PiUsersThreeLight } from 'react-icons/pi'
 import { HiTemplate } from 'react-icons/hi'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowRight } from 'react-icons/md'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { getAllProductsForAdmin } from '../actions/productAction'
 
+export const Sidebar = ({ sideTog }) => {
 
-export const Sidebar = ({sideTog}) => {
+    const dispatch = useDispatch()
 
     const [togTree, setTogTree] = useState(true)
 
     return (
         <>
-            <div className={` ${sideTog?"flex":"hidden"} flex-col z-10 fixed border-gray-400 min-h-screen px-12 bg-white shadow-xl shadow-gray-600`}>
+            <div className={` ${sideTog ? "flex" : "hidden"} flex-col z-10 fixed border-gray-400 min-h-screen px-12 bg-white shadow-xl shadow-gray-600`}>
                 <div className='flex justify-center items-center py-6 pt-12 '>
                     <img src={"/favicon.png"} alt="" />
                     <span className='text-xl font-bold'>StellarMart</span>
@@ -38,10 +42,15 @@ export const Sidebar = ({sideTog}) => {
 
                         </div>
                         <div className={`px-8 pt-1 gap-3 flex-col ${togTree ? "flex" : "hidden"} `}>
+                            <Link onClick={()=>{
+                                dispatch(getAllProductsForAdmin())
+                            }} to="/admin/products">
+
                             <div className='flex items-center pt-1 gap-2'>
                                 <HiTemplate />
                                 <span>All</span>
                             </div>
+                            </Link>
                             <div className='flex items-center gap-2'>
                                 <AiOutlinePlus />
                                 <span>Create</span>
