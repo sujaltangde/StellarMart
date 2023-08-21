@@ -53,7 +53,7 @@ const productSlice = createSlice({
             state.loading = false ;
             state.success = action.payload
         },
-        newReviewReset: (state, action) => {
+        newReviewReset: (state, action)  => {
             state.loading = false ;
             state.success = false
         },

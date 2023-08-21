@@ -1,7 +1,8 @@
 import axios from 'axios'
-import {allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, newReviewReset } from '../slices/ProductSlice.js'
+import {allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail } from '../slices/ProductSlice.js'
 import {productDetailsRequest, productDetailsSuccess, productDetailsFail } from '../slices/ProductDetailSlice.js'
-import { host } from './Host.js'
+import { toast } from 'react-toastify'
+
 
 // Getting All Products
 export const getProducts = (keyword = "", currentPage = 1, price = [0, 25000], category = "", ratings = 0)=> async (dispatch)=>{
@@ -38,6 +39,31 @@ export const getProductDetails = (id)=> async (dispatch)=>{
         dispatch(productDetailsFail(err.message))
     }
 }
+
+
+// New Review
+export const newReview = (reviewData) => async (dispatch) => {
+    try{    
+        dispatch(newReviewRequest())
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const { data } = await axios.put("http://localhost:4000/api/v1/review",reviewData,config) ;
+        
+        dispatch(newReviewSuccess(data.success))
+        toast.success("Review Added !")        
+
+    }catch(err){
+        dispatch(newReviewFail(err.response.data.message)) ;
+    }
+}
+
+
+
 
 
 

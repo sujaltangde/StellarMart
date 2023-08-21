@@ -5,7 +5,7 @@ import {MdAccountBox} from 'react-icons/md'
 import {FaBars} from 'react-icons/fa'
 import {RxCross1} from 'react-icons/rx'
 import { useSelector } from "react-redux"
-import { UserOptions } from './UserOptions'
+import {MenuB} from './Menu'
 
 
 
@@ -50,8 +50,9 @@ export const Navbar = () => {
               
               {isLogin?  
               
+            <MenuB/>
              
-             <UserOptions /> : 
+             : 
               
               <Link to="/auth" className='hover:text-orange-400' > <MdAccountBox size={25} /> </Link> }
 

@@ -1,13 +1,126 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { Sidebar } from '../components/Sidebar'
+import { BiMenuAltLeft } from 'react-icons/bi'
+import { Loader } from '../components/Loader'
+import { Pie , Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from 'chart.js';
+
+// Register CategoryScale
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title,
+  Tooltip,
+  Legend, ArcElement);
 
 export const Dashboard = () => {
-  return (
-    <>  
 
-        <div className='min-h-screen pt-14'>    
-                        Dashboard
-        </div>
-    
+  const { me } = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [sideTog, setSideTog] = useState(false)
+
+  const lineState = {
+    labels: ["Initial Amount", "Amount Earned"],
+    datasets: [
+      {
+        label: "TOTAL AMOUNT",
+        backgroundColor: ["tomato"],
+        hoverBackgroundColor: ["rgb(197, 72, 49"],
+        data: [0, 4000]
+      }
+    ]
+  }
+
+  const doughnutState = {
+    labels: ["Out of Stock", "InStock"],
+    datasets: [
+      {
+        backgroundColor: ["#00A684", "#6800B4"],
+        hoverBackgroundColor: ["#4B5000","#35014F"],
+        data: [2, 10],
+      },
+
+    ]
+  }
+
+
+  if (me !== null) {
+    if (me.role !== "admin") {
+      navigate("/");
+      console.log("Hey")
+    }
+  }
+
+  return (
+    <>
+
+      <div className='min-h-screen pt-14'>
+        {me ? <>
+          <div className='flex justify-start '>
+            <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
+              <BiMenuAltLeft size={44} />
+            </span>
+
+            <Sidebar sideTog={sideTog} />
+
+            <div className='w-full'>
+
+              <div className='py-6' >
+                <p className='text-center text-2xl'>Dashboard</p>
+              </div>
+              <div className='flex flex-col text-center font-medium  bg-blue-500 text-white py-2'>
+                <p>Total Amount</p>
+                <p>₹ 20000 </p>
+              </div>
+
+              <div className='grid md:grid-cols-3 grid-cols-1 md:gap-0 gap-3 justify-items-center md:px-64 py-6'>
+
+                <div className='bg-red-500 rounded-full font-medium flex justify-center items-center text-white w-40 h-40 '>
+                  <div className='flex flex-col justify-center items-center'>
+                    <p>Product</p>
+                    <p>50</p>
+                  </div>
+                </div>
+                <div className='bg-yellow-500 rounded-full font-medium flex justify-center items-center text-white w-40 h-40 '>
+                  <div className='flex flex-col justify-center items-center'>
+                    <p>Orders</p>
+                    <p>4</p>
+                  </div>
+                </div>
+                <div className='bg-gray-700 rounded-full font-medium flex justify-center items-center text-white w-40 h-40 '>
+                  <div className='flex flex-col justify-center items-center'>
+                    <p>Users</p>
+                    <p>2</p>
+                  </div>
+                </div>
+
+              </div>
+
+              <div className='flex justify-center w-full'>
+                <div className='md:mx-auto mx-3 md:w-[70vw] w-full py-5 '>
+                  <Line data={lineState} />
+                </div>
+              </div>
+
+              <div>
+              <div className='mx-auto  md:w-[30vw] w-full py-5 '>
+                  <Pie  data={doughnutState} />                
+              </div>
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </> : <Loader />}
+      </div>
+
     </>
   )
 }

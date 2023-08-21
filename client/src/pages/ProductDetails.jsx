@@ -9,26 +9,33 @@ import { ReviewCard } from '../components/ReviewCard';
 import { BiComment } from 'react-icons/bi'
 import { Loader } from '../components/Loader.jsx'
 import { MetaData } from '../components/MetaData';
-import {addItemsToCart} from '../actions/cartAction'
+import { addItemsToCart } from '../actions/cartAction'
 import { toast } from 'react-toastify'
-
-
-
+import { newReview } from '../actions/productAction'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Rating } from '@mui/material';
+import { newReviewReset } from '../slices/ProductSlice'
 
 export const ProductDetails = () => {
 
     const { id } = useParams();
 
     const dispatch = useDispatch()
-
+    const { success } = useSelector(state => state.products)
 
     const { product, loading, error } = useSelector((state) => state.productDetails)
     const [quantity, setQuantity] = useState(1);
-
+    const [open, setOpen] = useState(false)
+    const [rating, setRating] = useState(0) ;
+    const [comment, setComment] = useState("")
 
     useEffect(() => {
         dispatch(getProductDetails(id))
-    }, [])
+        dispatch(newReviewReset())
+    }, [dispatch,success])
 
 
     const options = {
@@ -55,13 +62,29 @@ export const ProductDetails = () => {
     };
 
     const addToCartHandler = () => {
-        dispatch(addItemsToCart(id,quantity))
-        if(quantity == 1){
+        dispatch(addItemsToCart(id, quantity))
+        if (quantity == 1) {
             toast.success("Item added to cart")
         }
-        else{
+        else {
             toast.success("Items added to cart")
         }
+    }
+
+    const submitReviewToggle = () => {
+        open ? setOpen(false) : setOpen(true)
+    }
+
+    const reviewSubmitHandler = () => {
+        const myForm = new FormData() ;
+
+        myForm.set("rating",rating) ;
+        myForm.set("comment",comment)
+        myForm.set("productId",id) ;
+
+        dispatch(newReview(myForm))
+        
+        setOpen(false)
     }
 
 
@@ -90,7 +113,7 @@ export const ProductDetails = () => {
                                                 <img src={img.url} alt="Image 1" className='rounded-xl object-cover w-44 h-90 z-0 ' />
                                             </div>
                                         ))
-                                        
+
                                         }
 
 
@@ -124,7 +147,7 @@ export const ProductDetails = () => {
                                                 <button className='px-2  font-bold text-xl bg-black text-white' onClick={increaseQuantity}>+</button>
 
                                             </div>
-                                           
+
 
                                             <button onClick={addToCartHandler} className='bg-blue-600 text-white text-xl font-medium px-3 rounded py-1'
                                                 disabled={product.Stock < 1 ? true : false}                                            >
@@ -134,6 +157,9 @@ export const ProductDetails = () => {
                                         </div>
 
                                     </div>
+
+
+                                    
 
 
                                     <div className='flex gap-2 pl-8 text-lg font-medium border border-x-0 pt-3 pb-4 border-gray-400 border-t-0'>Status:
@@ -147,12 +173,12 @@ export const ProductDetails = () => {
                                         <p className='text-xl '>Description :</p>
                                         <p className='pb-3'>{product.description}</p>
 
-                                        <button className='bg-blue-600 text-white text-xl font-medium px-3 rounded py-1' >
+                                        <button onClick={submitReviewToggle} className='bg-blue-600 text-white text-xl font-medium px-3 rounded py-1' >
                                             Submit Review
                                         </button>
+                                       
                                     </div>
-
-
+                                   
 
 
                                 </div>
@@ -172,6 +198,25 @@ export const ProductDetails = () => {
                                         <BiComment /> Reviews</span>
 
                                 </div>
+
+                                <Dialog open={open} onClose={submitReviewToggle} aria-labelledby='simple-dialog-title'>
+                                    <DialogTitle>Submit Review</DialogTitle>
+                                    <DialogContent className='flex flex-col gap-3 '>
+                                        <Rating onChange={(e) => setRating(e.target.value)} 
+                                            value={rating}
+
+                                          />
+                                          <textarea onChange={(e)=> setComment(e.target.value)} className='outline-none border border-gray-300 px-2 py-1' cols="30" rows="5">
+
+                                          </textarea>
+                                    </DialogContent>
+                                    <DialogActions className='flex gap-5 font-sans'>
+                                        <span onClick={reviewSubmitHandler} className=' font-semibold rounded  py-1 text-blue-600 cursor-pointer'>Submit</span>
+                                        <span onClick={submitReviewToggle} className='font-semibold text-red-600 cursor-pointer rounded  py-1' >Cancel</span>
+                                        
+                                    </DialogActions>
+                                </Dialog>
+
                                 {
                                     product.reviews && product.reviews[0] ? (
                                         // <div className=' grid md:grid-cols-4 grid-cols-1 justify-items-center gap-3 md:pt-3 md:px-5 px-4 '>

@@ -54,7 +54,7 @@ export const Orders = () => {
                         </div>
                         <div className='pt-3'>
                           <Link to="/products">
-                            <button className='bg-gray-800 font-medium rounded text-white px-8 py-1'>View Products</button></Link>
+                            <button className='bg-gray-800 hover:bg-gray-700 font-medium rounded text-white px-8 py-1'>Shop Now</button></Link>
                         </div>
                       </div>
 
