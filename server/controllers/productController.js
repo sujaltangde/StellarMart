@@ -1,16 +1,36 @@
 const Product = require("../models/productModel.js")
 const ApiFeatures = require("../utils/apiFeatures.js")
+const cloudinary = require("cloudinary")
 
 
 // Create Product -- Admin
 exports.createProduct = async (req, res, next) => {
     try {
 
+        let images = [] ; 
+        if(typeof req.body.images === "string"){
+            images.push(req.body.images)
+        }else{
+            images = req.body.images
+        }
+
+        const imagesLink = [] ;
+
+        for(let i = 0 ; i < images.length ; i++){
+            const result = await cloudinary.v2.uploader.upload(images[i],{
+                folder: "products",
+            }) ;
+
+            imagesLink.push({
+                public_id: result.public_id,
+                url: result.secure_url,
+            })
+        }
+
+        req.body.images = imagesLink
         req.body.user = req.user._id
-
-        const product = await Product.create(req.body)
-
         
+        const product = await Product.create(req.body)        
 
         res.status(201).json({
             success: true,
@@ -113,6 +133,11 @@ exports.deleteProduct = async (req, res, next) => {
                 success: false,
                 message: "Product not found"
             })
+        }
+
+        // Deleting images from cloudinary
+        for(let i = 0 ; i < product.images.length ; i++){
+           await cloudinary.v2.uploader.destroy(product.images[i].public_id)
         }
 
 

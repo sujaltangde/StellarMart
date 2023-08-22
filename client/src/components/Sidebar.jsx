@@ -5,13 +5,14 @@ import { PiUsersThreeLight } from 'react-icons/pi'
 import { HiTemplate } from 'react-icons/hi'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowRight } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllProductsForAdmin } from '../actions/productAction'
 
 export const Sidebar = ({ sideTog }) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [togTree, setTogTree] = useState(true)
 
@@ -24,10 +25,13 @@ export const Sidebar = ({ sideTog }) => {
                 </div>
                 <div className='flex flex-col gap-6'>
                     <div className="flex items-center gap-2">
-                        <div className='flex items-center gap-2 cursor-pointer'>
+                        <Link onClick={()=>{
+                            dispatch(getAllProductsForAdmin())
+                        }} to="/dashboard">  <div className='flex items-center gap-2 cursor-pointer'>
                             <LuLayoutDashboard />
                             <span className='text-lg font-medium'>Dashboard</span>
                         </div>
+                        </Link>
                     </div>
                     <div className="flex  flex-col">
                         <div className=' items-center gap-2 flex '>
@@ -42,19 +46,26 @@ export const Sidebar = ({ sideTog }) => {
 
                         </div>
                         <div className={`px-8 pt-1 gap-3 flex-col ${togTree ? "flex" : "hidden"} `}>
-                            <Link onClick={()=>{
+                            <Link onClick={() => {
                                 dispatch(getAllProductsForAdmin())
                             }} to="/admin/products">
 
-                            <div className='flex items-center pt-1 gap-2'>
-                                <HiTemplate />
-                                <span>All</span>
-                            </div>
+                                <div className='flex items-center pt-1 gap-2'>
+                                    <HiTemplate />
+                                    <span className='font-medium'>All</span>
+                                </div>
                             </Link>
-                            <div className='flex items-center gap-2'>
-                                <AiOutlinePlus />
-                                <span>Create</span>
-                            </div>
+
+                            <Link>
+                                <div className='flex items-center gap-2'>
+                                <Link to="/admin/newProduct">
+                                <div className='flex items-center pt-1 gap-2'>
+                                    <AiOutlinePlus />
+                                    <span className='font-medium'>Create</span>
+                                    </div>
+                                    </Link>
+                                </div>
+                            </Link>
 
                         </div>
 

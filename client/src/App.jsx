@@ -30,6 +30,8 @@ import { OrderSuccess } from './pages/OrderSuccess'
 import { OrderDetails } from './pages/OrderDetails'
 import {myOrders} from './actions/orderAction'
 import { ProductList } from "./components/ProductList"
+import { NewProduct } from "./pages/NewProduct"
+import { UpdateProduct } from "./pages/UpdateProduct"
 
 
 function App() {
@@ -106,6 +108,10 @@ function App() {
         <Route path="/order/confirm" element={<Confirm />} />
       
         <Route path="/order/:id" element={<OrderDetails />} />
+        
+        
+        <Route path="/admin/product/:id" element={ <UpdateProduct/> } />
+
 
 
 
@@ -121,6 +127,8 @@ function App() {
         <Route path="/success" element={<OrderSuccess />} />
 
         <Route path="/admin/products" element={<ProductList/>} />
+
+        <Route path="/admin/newProduct" element={<NewProduct/>} />
 
 
       </Routes>

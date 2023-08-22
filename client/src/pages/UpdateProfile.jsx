@@ -42,7 +42,7 @@ export const UpdateProfile = () => {
           };
     
           reader.readAsDataURL(e.target.files[0]);
-          setAvatarName
+          
         }
       }
     

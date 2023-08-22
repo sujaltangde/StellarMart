@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {MdModeEditOutline} from 'react-icons/md'
 import {AiFillDelete} from 'react-icons/ai'
+import {deleteProduct} from '../actions/productAction'
+
 
 export const ProductAdminTable = ({products}) => {
 
@@ -20,7 +22,7 @@ export const ProductAdminTable = ({products}) => {
         return `${day}-${month}-${year}`;
       }
     const sortedOrders = [...products].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      console.log(products)
+     
 
 
   return (
@@ -31,7 +33,7 @@ export const ProductAdminTable = ({products}) => {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 border-b  ">
                     <tr className=''>
                         <th scope="col" className="px-6 text-sm py-3">
-                            Order ID
+                            Product ID
                         </th>
                         <th scope="col" className="px-6 text-sm py-3">
                             Name
@@ -71,8 +73,11 @@ export const ProductAdminTable = ({products}) => {
                                     {convertDateFormat(item.createdAt.substr(0, 10))}
                                 </td>
                                 <td className="px-6 py-4 flex gap-4 ">
-                                   <MdModeEditOutline size={19} />
-                                   <AiFillDelete size={19}/>
+                               <Link to={`/admin/product/${item._id}`}>  <MdModeEditOutline size={19} /> </Link>
+
+                                   <AiFillDelete onClick={()=>{
+                                    dispatch(deleteProduct(item._id)) ;                                    
+                                   }} size={19}/>
                                    
                                 </td>
                                 

@@ -10,7 +10,7 @@ import { LuLayoutDashboard } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { removeAllWhenLogout } from '../actions/cartAction'
-
+import { getAllProductsForAdmin } from '../actions/productAction'
 
 export const MenuB = () => {
 
@@ -52,7 +52,9 @@ export const MenuB = () => {
                     My account
                 </Menu.Item></Link>
                 {me && me.role === "admin" ? (
-                    <Link to="/dashboard">
+                    <Link onClick={()=>{
+                        dispatch(getAllProductsForAdmin())
+                    }} to="/dashboard">
                         <Menu.Item icon={<LuLayoutDashboard />}>Dashboard</Menu.Item>
                     </Link>
                 ) : null}

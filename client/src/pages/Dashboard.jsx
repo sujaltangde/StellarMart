@@ -5,6 +5,7 @@ import { Sidebar } from '../components/Sidebar'
 import { BiMenuAltLeft } from 'react-icons/bi'
 import { Loader } from '../components/Loader'
 import { Doughnut, Line } from 'react-chartjs-2';
+import { getAllProductsForAdmin } from '../actions/productAction'
 import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title,
   Tooltip,
@@ -22,7 +23,22 @@ export const Dashboard = () => {
   const { me } = useSelector(state => state.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { adminProducts } = useSelector(state => state.products)
   const [sideTog, setSideTog] = useState(false)
+
+  let outOfStock = 0 ;
+
+  adminProducts && adminProducts.forEach(item => {
+    if(item.stock === 0){
+      outOfStock += 1 ;
+    }
+  });
+
+  useEffect(()=>{
+    dispatch(getAllProductsForAdmin())
+},[dispatch])
+
+
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -41,8 +57,8 @@ export const Dashboard = () => {
     datasets: [
       {
         backgroundColor: ["#00A684", "#6800B4"],
-        hoverBackgroundColor: ["#4B5000","#35014F"],
-        data: [2, 10],
+        hoverBackgroundColor: ["#4B5000", "#35014F"],
+        data: [outOfStock, adminProducts.length - outOfStock],
       },
 
     ]
@@ -82,8 +98,8 @@ export const Dashboard = () => {
 
                 <div className='bg-red-500 rounded-full font-medium flex justify-center items-center text-white w-40 h-40 '>
                   <div className='flex flex-col justify-center items-center'>
-                    <p>Product</p>
-                    <p>50</p>
+                    <p>Products</p>
+                    <p>{adminProducts && adminProducts.length}</p>
                   </div>
                 </div>
                 <div className='bg-yellow-500 rounded-full font-medium flex justify-center items-center text-white w-40 h-40 '>
@@ -108,9 +124,9 @@ export const Dashboard = () => {
               </div>
 
               <div>
-              <div className='mx-auto  md:w-[30vw] w-full py-5 '>
-                  <Doughnut data={doughnutState} />                
-              </div>
+                <div className='mx-auto  md:w-[30vw] w-full py-5 '>
+                  <Doughnut data={doughnutState} />
+                </div>
               </div>
 
 
