@@ -149,6 +149,7 @@ export const updateProduct = (id,newData) => async (dispatch)=>{
     }catch(err){
         dispatch(updateProductFail(err.response.data.message)) ;
         toast.error(err.response.data.message)
+        console.log(err.response.data.message)
     }
 }
 

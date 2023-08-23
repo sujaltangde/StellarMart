@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import {updateProduct} from '../actions/productAction'
+import { updateProduct, getProductDetails } from '../actions/productAction'
 import { BiMenuAltLeft } from 'react-icons/bi'
 import { Sidebar } from '../components/Sidebar'
 import { useDispatch, useSelector } from 'react-redux'
 import { LiaRupeeSignSolid } from 'react-icons/lia'
 import { FaProductHunt } from 'react-icons/fa'
 import { MdOutlineDescription, MdOutlineCategory, MdOutlineStorage } from 'react-icons/md'
-import {RxCross2} from 'react-icons/rx'
+import { RxCross2 } from 'react-icons/rx'
 import { useParams } from 'react-router'
 
 
@@ -14,85 +14,103 @@ import { useParams } from 'react-router'
 
 export const UpdateProduct = () => {
 
-   const [sideTog, setSideTog] = useState(false)
-   const dispatch = useDispatch();
-   const { loading, success } = useSelector(state => state.products)
-   const {id} = useParams()
+    const [sideTog, setSideTog] = useState(false)
+    const dispatch = useDispatch();
+    const { loading, success } = useSelector(state => state.products)
+    const { product } = useSelector(state => state.productDetails)
+    const { id } = useParams()
 
-   const [name, setName] = useState("");
-   const [price, setPrice] = useState("");
-   const [desc, setDesc] = useState("");
-   const [category, setCategory] = useState("");
-   const [stock, setStock] = useState(0);
-   const [images, setImages] = useState([]);   
-   const [oldImages, setOldImages] = useState([]);   
-   const [imagesPreview, setImagesPreview] = useState([]);
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [desc, setDesc] = useState("");
+    const [category, setCategory] = useState("");
+    const [stock, setStock] = useState(0);
+    const [images, setImages] = useState([]);
+    const [oldImages, setOldImages] = useState([]);
+    const [imagesPreview, setImagesPreview] = useState([]);
 
-
-   const categories = [
-       "Laptop",
-       "Footwear",
-       "Bottom",
-       "Tops",
-       "Attire",
-       "Camera",
-       "SmartPhones"
-   ]
-
-   const createProductSubmitHandler = (e) => {
-       e.preventDefault();
-
-       const myForm = new FormData();
-       myForm.set("name", name);
-       myForm.set("price", price);
-       myForm.set("description", desc);
-       myForm.set("category", category);
-       myForm.set("stock", stock);
-
-       images.forEach((image) => {
-           myForm.append("images", image);
-       });
-
-       dispatch(updateProduct(id,myForm));
-
-       
-       setName("")
-       setPrice("")
-       setDesc("")
-       setImages([])
-       setImagesPreview([])
-       setStock(0)
-       setCategory("")
-   }
+    useEffect(() => {
+        if (product && product._id !== id) {
+            dispatch(getProductDetails(id));
+        } else {
+            setName(product.name);
+            setPrice(product.price)
+            setDesc(product.description)
+            setStock(product.stock)
+            setCategory(product.category)
+            setOldImages(product.images)
+        }
+    }, [dispatch, product, id])
 
 
-   const createProductImageChange = (e) => {
-       const files = Array.from(e.target.files);
-       setImages([])
-       setImagesPreview([])
+    const categories = [
+        "Laptop",
+        "Footwear",
+        "Bottom",
+        "Tops",
+        "Attire",
+        "Camera",
+        "SmartPhones",
+        "Electronics"
+    ]
 
-       files.forEach(file => {
-           const reader = new FileReader();
 
-           reader.onload = () => {
-               if (reader.readyState === 2) {
-                   setImagesPreview((old) => [...old, reader.result]);
-                   setImages((old) => [...old, reader.result])
-               }
-           }
+    const updateProductSubmitHandler = (e) => {
+        e.preventDefault();
 
-           reader.readAsDataURL(file);
-       })
+        const myForm = new FormData();
+        myForm.set("name", name);
+        myForm.set("price", price);
+        myForm.set("description", desc);
+        myForm.set("category", category);
+        myForm.set("stock", stock);
 
-   }
+        images.forEach((image) => {
+            myForm.append("images", image);
+        });
 
-    
+        console.log(images)
 
-  return (
-     <>
+        dispatch(updateProduct(id, myForm));
 
-        
-<div className='min-h-screen pt-14 bg-gray-200 pb-16'>
+
+        // setName("")
+        // setPrice("")
+        // setDesc("")
+        // setImages([])
+        // setImagesPreview([])
+        // setStock(0)
+        // setCategory("")
+    }
+
+
+    const updateProductImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        setImages([])
+        setImagesPreview([])
+        setOldImages([])
+        files.forEach(file => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setImagesPreview((old) => [...old, reader.result]);
+                    setImages((old) => [...old, reader.result])
+                }
+            }
+
+            reader.readAsDataURL(file);
+        })
+
+    }
+
+
+
+    return (
+        <>
+
+
+            <div className='min-h-screen pt-14 bg-gray-200 pb-16'>
                 <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
                     <BiMenuAltLeft size={44} />
                 </span>
@@ -100,7 +118,7 @@ export const UpdateProduct = () => {
 
                 <div className='flex items-center w-full pt-10 justify-center md:px-0 px-5'>
 
-                    <form action="" onSubmit={createProductSubmitHandler} className=" flex  flex-col  gap-5 px-8 bg-white rounded-md shadow-md shadow-gray-400 md:w-1/3 w-full pt-6 pb-6">
+                    <form action=""  className=" flex  flex-col  gap-5 px-8 bg-white rounded-md shadow-md shadow-gray-400 md:w-1/3 w-full pt-6 pb-6">
                         <div>
                             <p className='text-2xl text-center  font-medium'>Update Product</p>
                         </div>
@@ -131,11 +149,11 @@ export const UpdateProduct = () => {
                             <select required value={category}
                                 onChange={(e) => setCategory(e.target.value)} name="" className='w-full pl-4 outline-none py-1 pr-6 bg-white cursor-pointer ' id="">
                                 <option value="not selected">Select Category</option>
-                                {categories.map((item)=>(
+                                {categories.map((item) => (
                                     <option key={item} className='cursor-pointer' value={item}>{item}</option>
                                 ))}
-                                    
-                                
+
+
                             </select>
                         </div>
                         <div className='relative pl-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
@@ -169,26 +187,36 @@ export const UpdateProduct = () => {
                             <div className='relative pl-3 rounded hover:bg-gray-100 border border-gray-500 py-1 flex justify-around flex-col items-center'>
 
                                 <label htmlFor="fileinput" className='cursor-pointer w-full text-gray-500 flex justify-center text-center items-center gap-4 py-1'>
-                                
-                                    {imagesPreview.length === 0 ? "Select Images" : `${imagesPreview.length} images selected`}
+
+                                    {oldImages.length === 0 ? "Select Images" : `${oldImages.length} images selected`}
                                 </label>
                                 <input type="file"
                                     name="avatar"
                                     accept="image/*"
                                     multiple
                                     required
-                                    onChange={createProductImageChange}
+                                    onChange={updateProductImageChange}
                                     className='hidden w-full pl-4 outline-none py-1 pr-4  ' id='fileinput' />
                             </div>
                             <div className='flex flex-wrap justify-start items-start gap-2 pt-1'>
+                                {oldImages.map((image, index) => (
+                                    <div key={index} className='flex'>
+                                        <span onClick={() => {
+                                            const newImagesPre = oldImages.filter((img) => img !== image)
+                                            setImagesPreview(newImagesPre)
+                                            setImages(newImagesPre)
+                                        }} className='text-red-700 font-bold cursor-pointer' > <RxCross2 /> </span>
+                                        <img key={index} src={image.url} className='w-14 h-14' alt="Product Preview" />
+                                    </div>
+                                ))}
                                 {imagesPreview.map((image, index) => (
-                                    <div className='flex'>
-                                    <span onClick={()=>{ 
-                                       const newImagesPre = imagesPreview.filter((img)=> img !== image)                                       
-                                        setImagesPreview(newImagesPre)
-                                        setImages(newImagesPre)
-                                    }} className='text-red-700 font-bold cursor-pointer' > <RxCross2/> </span>
-                                    <img key={index} src={image} className='w-14 h-14' alt="Product Preview" />
+                                    <div key={index} className='flex'>
+                                        <span onClick={() => {
+                                            const newImagesPre = imagesPreview.filter((img) => img !== image)
+                                            setImagesPreview(newImagesPre)
+                                            setImages(newImagesPre)
+                                        }} className='text-red-700 font-bold cursor-pointer' > <RxCross2 /> </span>
+                                        <img key={index} src={image} className='w-14 h-14' alt="Product Preview" />
                                     </div>
                                 ))}
                             </div>
@@ -203,7 +231,9 @@ export const UpdateProduct = () => {
                                 </svg>
                                 <span className="sr-only">Loading...</span>
                             </div>
-                        </div> : <input type="submit" value="Create Product" className='w-full cursor-pointer bg-blue-600 py-2 text-white font-medium rounded hover:bg-blue-500 ' />}
+                        </div> : <button onClick={(e)=>{
+                            updateProductSubmitHandler(e)
+                        }} className='w-full cursor-pointer bg-blue-600 py-2 text-white font-medium rounded hover:bg-blue-500 '>Update Product</button>}
 
 
 
@@ -214,7 +244,7 @@ export const UpdateProduct = () => {
 
             </div>
 
-     
-     </>
-  )
+
+        </>
+    )
 }

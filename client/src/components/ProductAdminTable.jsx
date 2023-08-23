@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {MdModeEditOutline} from 'react-icons/md'
 import {AiFillDelete} from 'react-icons/ai'
-import {deleteProduct} from '../actions/productAction'
+import {deleteProduct, getProductDetails} from '../actions/productAction'
 
 
 export const ProductAdminTable = ({products}) => {
@@ -73,7 +73,9 @@ export const ProductAdminTable = ({products}) => {
                                     {convertDateFormat(item.createdAt.substr(0, 10))}
                                 </td>
                                 <td className="px-6 py-4 flex gap-4 ">
-                               <Link to={`/admin/product/${item._id}`}>  <MdModeEditOutline size={19} /> </Link>
+                               <Link onClick={()=>{
+                                dispatch(getProductDetails(item._id))
+                               }} to={`/admin/product/${item._id}`}>  <MdModeEditOutline size={19} /> </Link>
 
                                    <AiFillDelete onClick={()=>{
                                     dispatch(deleteProduct(item._id)) ;                                    
