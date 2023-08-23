@@ -8,7 +8,7 @@ import { FaProductHunt } from 'react-icons/fa'
 import { MdOutlineDescription, MdOutlineCategory, MdOutlineStorage } from 'react-icons/md'
 import { RxCross2 } from 'react-icons/rx'
 import { useParams } from 'react-router'
-
+import { MetaData } from '../components/MetaData'
 
 
 
@@ -101,7 +101,7 @@ export const UpdateProduct = () => {
     return (
         <>
 
-
+<MetaData title="Update Product" />
             <div className='min-h-screen pt-14 bg-gray-200 pb-16'>
                 <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
                     <BiMenuAltLeft size={44} />

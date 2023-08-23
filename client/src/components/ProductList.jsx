@@ -5,6 +5,8 @@ import { Loader } from '../components/Loader'
 import { ProductAdminTable } from './ProductAdminTable'
 import { BiMenuAltLeft } from 'react-icons/bi'
 import { Sidebar } from './Sidebar'
+import { MetaData } from './MetaData'
+
 
 export const ProductList = () => {
 
@@ -19,7 +21,7 @@ export const ProductList = () => {
 
   return (
     <>
-
+      <MetaData title="All Products" />
       <div className='min-h-screen pt-14'>
         <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
           <BiMenuAltLeft size={44} />

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail, userDetailsRequest, userDetailsSuccess, userDetailsFail } from '../slices/UserSlice'
+import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail, userDetailsRequest, userDetailsSuccess, userDetailsFail, userUpdatedRequest, userUpdatedSuccess, userUpdatedFail, userDeleteRequest, userDeleteSuccess, userDeleteFail} from '../slices/UserSlice'
 import { toast } from 'react-toastify';
 
 
@@ -191,6 +191,53 @@ export const getUserDetails = (id) => async (dispatch) => {
     }
 }
 
+
+// Update User -- admin
+export const updateUser = (id, newdata) => async (dispatch) => {
+    try{
+        dispatch(userUpdatedRequest())
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.put(`http://localhost:4000/api/v1/admin/user/${id}`, newdata, config) ;
+
+        dispatch(userUpdatedSuccess(data.success)) ;
+        dispatch(getUserDetails(id))
+        toast.success(data.message) ;
+
+    }catch(err){
+        dispatch(userUpdatedFail(err.response.data.message)) ;
+        toast.error(err.response.data.message)
+    }
+}
+
+
+// Delete User -- admin
+export const deleteUser = (id) => async (dispatch) => {
+    try{
+        dispatch(userDeleteRequest())
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.delete(`http://localhost:4000/api/v1/admin/user/${id}`, config) ;
+
+        dispatch(userDeleteSuccess(data.success)) ;
+        toast.success("User Deleted Successfully !") ;
+        dispatch(getAllUsers())
+
+    }catch(err){
+        dispatch(userDeleteFail(err.response.data.message)) ;
+        toast.error(err.response.data.message)
+    }
+}
 
 
 

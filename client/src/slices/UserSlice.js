@@ -12,7 +12,16 @@ const userSlice = createSlice({
         me: null,
         isUpdated: false ,
         allUsers: [],
-        userDetails: null ,
+        userDetails: {
+            _id: "",
+            name: "",
+            email: "",
+            password: "",
+            avtar: [], 
+            role: "",
+            createdAt: "",
+            __v: 0,
+          } ,
         success: false,
         },
 
@@ -141,11 +150,24 @@ const userSlice = createSlice({
             state.loading = false ;
             state.success = action.payload.success
         },
-        userUpdatedFail: (state) => {
+        userUpdatedFail: (state,action) => {
             state.loading = false ;
             state.success = action.payload.success
         },
 
+        userDeleteRequest: (state)=>{
+            state.loading = true 
+        },
+        userDeleteSuccess: (state, action) => {
+            state.loading = false ;
+            state.success = true ;
+        },
+        userDeleteFail: (state, action) => {
+            state.loading = false ;
+            state.error = action.payload ;
+        },
+
+        
 
         clearErrors: (state) => {
             state.error = null;
@@ -155,7 +177,7 @@ const userSlice = createSlice({
 })
 
 export const { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors,  setIsLoginTrue, setIsLoginFalse, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail,
-updateProfileReset, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail, userDetailsRequest, userDetailsSuccess, userDetailsFail, userUpdatedRequest, userUpdatedSuccess, userUpdatedFail
+updateProfileReset, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail, userDetailsRequest, userDetailsSuccess, userDetailsFail, userUpdatedRequest, userUpdatedSuccess, userUpdatedFail, userDeleteRequest, userDeleteSuccess, userDeleteFail
 } = userSlice.actions;
 
 export default userSlice.reducer

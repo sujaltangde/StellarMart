@@ -34,6 +34,8 @@ import { NewProduct } from "./pages/NewProduct"
 import { UpdateProduct } from "./pages/UpdateProduct"
 import { OrdersList } from "./pages/OrdersList"
 import { UpdateOrder } from "./pages/UpdateOrder"
+import { UserList } from "./pages/UserList"
+import { UpdateUser } from "./pages/UpdateUser"
 
 
 
@@ -136,6 +138,11 @@ function App() {
         <Route path="/admin/orders" element={<OrdersList/>} />
 
         <Route path="/admin/order/:id" element={<UpdateOrder/>} />
+
+
+        <Route path="/admin/users" element={<UserList/>} />
+
+        <Route path="/admin/user/:id" element={<UpdateUser/>} />
 
 
       </Routes>

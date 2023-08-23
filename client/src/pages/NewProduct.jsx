@@ -7,6 +7,8 @@ import { LiaRupeeSignSolid } from 'react-icons/lia'
 import { FaProductHunt } from 'react-icons/fa'
 import { MdOutlineDescription, MdOutlineCategory, MdOutlineStorage } from 'react-icons/md'
 import {RxCross2} from 'react-icons/rx'
+import { MetaData } from '../components/MetaData'
+
 
 
 export const NewProduct = () => {
@@ -87,7 +89,7 @@ export const NewProduct = () => {
 
     return (
         <>
-
+            <MetaData title="Create Product" />
             <div className='min-h-screen pt-14 bg-gray-200 pb-16'>
                 <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
                     <BiMenuAltLeft size={44} />
