@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { MdModeEditOutline } from 'react-icons/md'
 import { AiFillDelete } from 'react-icons/ai'
-import { getAllOrders, deleteOrder } from '../actions/orderAction'
+import { getAllOrders, deleteOrder, getOrderDetails } from '../actions/orderAction'
 
 
 
@@ -76,7 +76,7 @@ export const OrderAdminTable = ({ orders }) => {
                                     </td>
                                     <td className="px-6 py-4 flex gap-4 ">
                                         <Link onClick={() => {
-                                            // dispatch(getProductDetails(item._id))
+                                            dispatch(getOrderDetails(item._id))
                                         }} to={`/admin/order/${item._id}`}>  <MdModeEditOutline size={19} /> </Link>
 
                                         <AiFillDelete onClick={() => {

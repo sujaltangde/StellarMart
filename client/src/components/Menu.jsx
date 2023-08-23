@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { removeAllWhenLogout } from '../actions/cartAction'
 import { getAllProductsForAdmin } from '../actions/productAction'
+import { getAllOrders } from '../actions/orderAction'
+import { getAllUsers } from '../actions/userAction'
+
 
 export const MenuB = () => {
 
@@ -54,6 +57,8 @@ export const MenuB = () => {
                 {me && me.role === "admin" ? (
                     <Link onClick={()=>{
                         dispatch(getAllProductsForAdmin())
+                        dispatch(getAllOrders())
+                        dispatch(getAllUsers())
                     }} to="/dashboard">
                         <Menu.Item icon={<LuLayoutDashboard />}>Dashboard</Menu.Item>
                     </Link>

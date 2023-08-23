@@ -1,6 +1,6 @@
 import React from 'react'
 import { MetaData } from '../components/MetaData'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { CheckoutSteps } from '../components/CheckoutSteps'
 import { useNavigate } from 'react-router'
 
@@ -10,6 +10,7 @@ export const Confirm = () => {
     const { cartItems, shippingInfo } = useSelector(state => state.cart)
     const { me } = useSelector(state => state.user)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}`
 
     const subTotal = () => {
@@ -36,6 +37,8 @@ export const Confirm = () => {
 
         navigate("/order/payment")
     } 
+
+    
 
     return (
         <>

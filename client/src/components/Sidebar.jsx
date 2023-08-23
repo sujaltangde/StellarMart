@@ -9,6 +9,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllProductsForAdmin } from '../actions/productAction'
 import { getAllOrders } from '../actions/orderAction'
+import { getAllUsers } from '../actions/userAction'
+
+
 
 export const Sidebar = ({ sideTog }) => {
 
@@ -28,6 +31,8 @@ export const Sidebar = ({ sideTog }) => {
                     <div className="flex items-center gap-2">
                         <Link onClick={()=>{
                             dispatch(getAllProductsForAdmin())
+                            dispatch(getAllOrders())
+                            dispatch(getAllUsers())
                         }} to="/dashboard">  <div className='flex items-center gap-2 cursor-pointer'>
                             <LuLayoutDashboard />
                             <span className='text-lg font-medium'>Dashboard</span>

@@ -73,14 +73,6 @@ export const UpdateProduct = () => {
 
         dispatch(updateProduct(id, myForm));
 
-
-        // setName("")
-        // setPrice("")
-        // setDesc("")
-        // setImages([])
-        // setImagesPreview([])
-        // setStock(0)
-        // setCategory("")
     }
 
 

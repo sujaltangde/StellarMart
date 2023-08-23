@@ -100,6 +100,8 @@ export const updateOrder = (id, order) => async (dispatch) => {
         const {data} = await axios.put(`http://localhost:4000/api/v1/admin/order/${id}`,order,config) ;
 
         dispatch(updateOrderSuccess(data)) ;
+        dispatch(getOrderDetails(id)) ;
+        
         toast.success("Order Updated !") ;
 
     }catch(err){

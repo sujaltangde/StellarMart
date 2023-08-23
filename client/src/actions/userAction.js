@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, changePasswordRequest, changePasswordSuccess, changePasswordFail } from '../slices/UserSlice'
+import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail } from '../slices/UserSlice'
 import { toast } from 'react-toastify';
 
 
@@ -151,6 +151,29 @@ export const changePassword = (passData) => async (dispatch) => {
         toast.error(err.response.data.message) ;
     }
 }
+
+
+// Get ALl Users --admin
+export const getAllUsers = () => async (dispatch) => {
+    try{
+        dispatch(allUsersRequest())
+        
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.get("http://localhost:4000/api/v1/admin/users",config) ;
+
+        dispatch(allUsersSuccess(data.AllUsers))
+
+    }catch(err){
+        dispatch(allUsersFail(err.response.data.message))
+    }
+}
+
+
 
 // Clearing Errors
 export const clearError = () => async (dispatch) => {

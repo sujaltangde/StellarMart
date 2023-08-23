@@ -6,6 +6,8 @@ import { BiMenuAltLeft } from 'react-icons/bi'
 import { Loader } from '../components/Loader'
 import { Doughnut, Line } from 'react-chartjs-2';
 import { getAllProductsForAdmin } from '../actions/productAction'
+import { getAllOrders } from '../actions/orderAction'
+import { getAllUsers } from '../actions/userAction'
 import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title,
   Tooltip,
@@ -24,6 +26,9 @@ export const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { adminProducts } = useSelector(state => state.products)
+  const { allOrders } = useSelector(state => state.newOrder)
+  const { allUsers } = useSelector(state => state.user)
+
   const [sideTog, setSideTog] = useState(false)
 
   let outOfStock = 0 ;
@@ -36,6 +41,8 @@ export const Dashboard = () => {
 
   useEffect(()=>{
     dispatch(getAllProductsForAdmin())
+    dispatch(getAllOrders())
+    dispatch(getAllUsers())
 },[dispatch])
 
 
@@ -105,13 +112,13 @@ export const Dashboard = () => {
                 <div className='bg-yellow-500 rounded-full font-medium flex justify-center items-center text-white w-40 h-40 '>
                   <div className='flex flex-col justify-center items-center'>
                     <p>Orders</p>
-                    <p>4</p>
+                    <p>{allOrders && allOrders.length}</p>
                   </div>
                 </div>
                 <div className='bg-gray-700 rounded-full font-medium flex justify-center items-center text-white w-40 h-40 '>
                   <div className='flex flex-col justify-center items-center'>
                     <p>Users</p>
-                    <p>2</p>
+                    <p>{allUsers && allUsers.length}</p>
                   </div>
                 </div>
 
