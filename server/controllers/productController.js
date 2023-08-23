@@ -103,7 +103,7 @@ exports.updateProduct = async (req, res) => {
                 message: "Product not found"
             })
         }
-        console.log("hy")
+        
         // Images Start Here
         let images = [];
         if (typeof req.body.images === "string") {
@@ -186,7 +186,6 @@ exports.deleteProduct = async (req, res, next) => {
         })
     }
 }
-
 
 
 

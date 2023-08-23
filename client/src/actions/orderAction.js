@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
-import {createOrderRequest, createOrderSuccess, createOrderFail, myOrderRequest, myOrderSuccess, myOrderFail, orderDetailsRequest, orderDetailsSuccess, orderDetailsFail} from '../slices/OrderSlice'
+import {createOrderRequest, createOrderSuccess, createOrderFail, myOrderRequest, myOrderSuccess, myOrderFail, orderDetailsRequest, orderDetailsSuccess, orderDetailsFail, allOrderRequest, allOrderSuccess, allOrderFail,
+    updateOrderRequest, updateOrderSuccess, updateOrderFail, deleteOrderRequest, deleteOrderSuccess, deleteOrderFail} from '../slices/OrderSlice'
 import axios from 'axios'
 
 // Create New Order
@@ -60,6 +61,72 @@ export const getOrderDetails = (id) => async (dispatch) => {
         
     }catch(err){
         dispatch(orderDetailsFail(err.response.data.message))
+        toast.error(err.response.data.message)
+    }
+}
+
+// Get all orders --admin
+export const getAllOrders = () => async (dispatch) => {
+    try{
+        dispatch(allOrderRequest())
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.get("http://localhost:4000/api/v1/admin/orders",config) ;
+
+        dispatch(allOrderSuccess(data.orders))
+
+        
+    }catch(err){
+        dispatch(allOrderFail(err.response.data.message)) ;
+    }
+}
+
+// Update Order -- admin
+export const updateOrder = (id, order) => async (dispatch) => {
+    try{
+        dispatch(updateOrderRequest()) ;
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.put(`http://localhost:4000/api/v1/admin/order/${id}`,order,config) ;
+
+        dispatch(updateOrderSuccess(data)) ;
+        toast.success("Order Updated !") ;
+
+    }catch(err){
+        dispatch(updateOrderFail(err.response.data.message))
+        toast.error(err.response.data.message)
+    }
+}
+
+// Delete Order -- admin
+export const deleteOrder = (id) => async (dispatch) => {
+    try{
+        dispatch(deleteOrderRequest()) ;
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.delete(`http://localhost:4000/api/v1/admin/order/${id}`,config) ;
+
+        dispatch(deleteOrderSuccess(data)) ;
+        dispatch(getAllOrders()) ;
+        toast.success("Order Deleted !") ;
+
+    }catch(err){
+        dispatch(deleteOrderFail(err.response.data.message))
         toast.error(err.response.data.message)
     }
 }

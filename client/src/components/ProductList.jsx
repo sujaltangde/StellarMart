@@ -9,37 +9,37 @@ import { Sidebar } from './Sidebar'
 export const ProductList = () => {
 
 
-    const dispatch = useDispatch()
-    const { adminProducts, loading } = useSelector(state => state.products)    
-    const [sideTog, setSideTog] = useState(false)
+  const dispatch = useDispatch()
+  const { adminProducts, loading } = useSelector(state => state.products)
+  const [sideTog, setSideTog] = useState(false)
 
-    useEffect(()=>{
-        dispatch(getAllProductsForAdmin())
-    },[])
+  useEffect(() => {
+    dispatch(getAllProductsForAdmin())
+  }, [])
 
   return (
     <>
 
-            <div className='min-h-screen pt-14'>
-            <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
-              <BiMenuAltLeft size={44} />
-            </span>
-            <Sidebar sideTog={sideTog} />
-                   {
-                      loading || adminProducts.length === 0 ?  <Loader/> :
-                      
-                      <>
-                            <div className='text-center py-4 text-2xl font-medium'>
-                                <p>All Products</p>
-                            </div>
-                            <ProductAdminTable products={adminProducts} />
+      <div className='min-h-screen pt-14'>
+        <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
+          <BiMenuAltLeft size={44} />
+        </span>
+        <Sidebar sideTog={sideTog} />
+        {
+          loading || adminProducts.length === 0 ? <Loader /> :
 
-                      </>
+            <>
+              <div className='text-center py-4 text-2xl font-medium'>
+                <p>All Products</p>
+              </div>
+              <ProductAdminTable products={adminProducts} />
 
-                   }
+            </>
 
-            </div>    
-    
+        }
+
+      </div>
+
     </>
   )
 }

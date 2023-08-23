@@ -8,6 +8,7 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowRight } from 'react-i
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllProductsForAdmin } from '../actions/productAction'
+import { getAllOrders } from '../actions/orderAction'
 
 export const Sidebar = ({ sideTog }) => {
 
@@ -72,22 +73,30 @@ export const Sidebar = ({ sideTog }) => {
 
                     </div>
                     <div className="flex items-center gap-2">
+                        <Link onClick={()=>{
+                            dispatch(getAllOrders())
+                        }} to="/admin/orders">
                         <div className='flex items-center gap-2 cursor-pointer'>
                             <FaRegListAlt />
                             <span className='text-lg font-medium'>Orders</span>
                         </div>
+                        </Link>
                     </div>
                     <div className="flex items-center gap-2">
+                        <Link to="/admin/users">
                         <div className='flex items-center gap-2 cursor-pointer'>
                             <PiUsersThreeLight size={20} />
                             <span className='text-lg font-medium'>Users</span>
                         </div>
+                        </Link>
                     </div>
                     <div className="flex items-center gap-2">
+                        <Link to="/admin/reviews">
                         <div className='flex items-center gap-2 cursor-pointer'>
                             <FaRegComments />
                             <span className='text-lg font-medium'>Reviews</span>
                         </div>
+                        </Link>
                     </div>
 
                 </div>

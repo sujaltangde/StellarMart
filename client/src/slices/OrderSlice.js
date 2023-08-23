@@ -1,54 +1,97 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const orderSlice = createSlice({
     name: 'order',
-    initialState:{
+    initialState: {
         loading: false,
-        order: null ,
-        myOrders: [] ,
+        order: null,
+        myOrders: [],
         error: null,
-        orderDetails:{}
+        orderDetails: {},
+        success: false,
+        allOrders: [],
     },
-    reducers:{
-        createOrderRequest: (state)=>{
-            state.loading = true ;
+    reducers: {
+        createOrderRequest: (state) => {
+            state.loading = true;
         },
-        createOrderSuccess: (state,action)=>{
-            state.loading = false ;
+        createOrderSuccess: (state, action) => {
+            state.loading = false;
             state.order = action.payload
         },
-        createOrderFail: (state,action)=>{
-            state.loading = false ;
+        createOrderFail: (state, action) => {
+            state.loading = false;
             state.error = action.payload
         },
-        myOrderRequest: (state)=>{
-            state.loading = true ;
+        myOrderRequest: (state) => {
+            state.loading = true;
         },
-        myOrderSuccess: (state,action)=>{
-            state.loading = false ;
+        myOrderSuccess: (state, action) => {
+            state.loading = false;
             state.myOrders = action.payload
         },
-        myOrderFail: (state,action)=>{
-            state.loading = false ;
+        myOrderFail: (state, action) => {
+            state.loading = false;
             state.error = action.payload
         },
-        
+
         orderDetailsRequest: (state) => {
             state.loading = true
         },
-        orderDetailsSuccess: (state,action) => {
+        orderDetailsSuccess: (state, action) => {
             state.loading = false,
-            state.orderDetails = action.payload
+                state.orderDetails = action.payload
         },
-        orderDetailsFail: (state,action) => {
+        orderDetailsFail: (state, action) => {
             state.loading = false,
-            state.error = action.payload
-        }
+                state.error = action.payload
+        },
+
+        allOrderRequest: (state) => {
+            state.loading = true
+        },
+        allOrderSuccess: (state, action) => {
+            state.loading = false,
+                state.allOrders = action.payload
+        },
+        allOrderFail: (state, action) => {
+            state.loading = false,
+                state.error = action.payload
+        },
+
+        updateOrderRequest: (state) => {
+            state.loading = true
+        },
+        updateOrderSuccess: (state, action) => {
+            state.loading = false,
+                state.success = action.payload.success
+        },
+        updateOrderFail: (state, action) => {
+            state.loading = false,
+                state.error = action.payload
+        },
+
+        deleteOrderRequest: (state) => {
+            state.loading = true
+        },
+        deleteOrderSuccess: (state, action) => {
+            state.loading = false,
+                state.success = action.payload.success
+        },
+        deleteOrderFail: (state, action) => {
+            state.loading = false,
+                state.error = action.payload
+        },
+
+
 
 
     }
 })
 
-export const {createOrderRequest, createOrderSuccess, createOrderFail, myOrderRequest, myOrderSuccess, myOrderFail
-, orderDetailsRequest, orderDetailsSuccess, orderDetailsFail } = orderSlice.actions ;
+export const { createOrderRequest, createOrderSuccess, createOrderFail, myOrderRequest, myOrderSuccess, myOrderFail
+    , orderDetailsRequest, orderDetailsSuccess, orderDetailsFail,
+    allOrderRequest, allOrderSuccess, allOrderFail,
+    updateOrderRequest, updateOrderSuccess, updateOrderFail, deleteOrderRequest, deleteOrderSuccess, deleteOrderFail
+} = orderSlice.actions;
 export default orderSlice.reducer
