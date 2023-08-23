@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail } from '../slices/UserSlice'
+import { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors, setIsLoginFalse, setIsLoginTrue, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail, userDetailsRequest, userDetailsSuccess, userDetailsFail } from '../slices/UserSlice'
 import { toast } from 'react-toastify';
 
 
@@ -56,9 +56,6 @@ export const register = (userData) => async (dispatch) => {
 
     }
 }
-
-
-
 
 
 
@@ -172,6 +169,29 @@ export const getAllUsers = () => async (dispatch) => {
         dispatch(allUsersFail(err.response.data.message))
     }
 }
+
+
+// Get User Details --admin
+export const getUserDetails = (id) => async (dispatch) => {
+    try{
+        dispatch(userDetailsRequest()) ;
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.get(`http://localhost:4000/api/v1/admin/user/${id}`,config)
+
+        dispatch(userDetailsSuccess(data.user)) ;
+
+    }catch(err){
+        dispatch(userDetailsFail(err.response.data.message))
+    }
+}
+
+
 
 
 

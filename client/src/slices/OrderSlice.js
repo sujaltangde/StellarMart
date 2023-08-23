@@ -1,13 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const orderSlice = createSlice({
-    name: 'order',
+    name: 'newOrder',
     initialState: {
         loading: false,
         order: null,
         myOrders: [],
         error: null,
-        orderDetails: {},
+        // orderDetails: {},
+        orderDetails: {
+            _id: "",
+            shippingInfo: {},
+            paymentInfo: {},
+            orderItems: [],
+            user: {},
+            paidAt: "",
+            itemPrice: 0,
+            taxPrice: 0,
+            shippingPrice: 0,
+            totalPrice: 0,
+            orderStatus: "",
+            deliveredAt: "",
+          },
         success: false,
         allOrders: [],
     },
@@ -43,7 +57,7 @@ const orderSlice = createSlice({
                 state.orderDetails = action.payload
         },
         orderDetailsFail: (state, action) => {
-            state.loading = false,
+             state.loading = false,
                 state.error = action.payload
         },
 

@@ -12,6 +12,8 @@ const userSlice = createSlice({
         me: null,
         isUpdated: false ,
         allUsers: [],
+        userDetails: null ,
+        success: false,
         },
 
     reducers: {
@@ -120,6 +122,30 @@ const userSlice = createSlice({
             state.error = action.payload
         },
 
+        userDetailsRequest: (state) => {
+            state.loading = true
+        },
+        userDetailsSuccess: (state,action) => {
+            state.loading = false ;
+            state.userDetails = action.payload
+        },
+        userDetailsFail: (state,action) => {
+            state.loading = false ;
+            state.error = action.payload
+        },
+
+        userUpdatedRequest: (state) => {
+            state.loading = true
+        },
+        userUpdatedSuccess: (state,action) => {
+            state.loading = false ;
+            state.success = action.payload.success
+        },
+        userUpdatedFail: (state) => {
+            state.loading = false ;
+            state.success = action.payload.success
+        },
+
 
         clearErrors: (state) => {
             state.error = null;
@@ -129,7 +155,7 @@ const userSlice = createSlice({
 })
 
 export const { loginRequest, loginSuccess, loginFail, registerRequest, registerSuccess, registerFail, clearErrors,  setIsLoginTrue, setIsLoginFalse, getMeRequest, getMeSuccess, getMeFail, updateProfileRequest, updateProfileSuccess, updateProfileFail,
-updateProfileReset, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail
+updateProfileReset, changePasswordRequest, changePasswordSuccess, changePasswordFail, allUsersRequest, allUsersSuccess, allUsersFail, userDetailsRequest, userDetailsSuccess, userDetailsFail, userUpdatedRequest, userUpdatedSuccess, userUpdatedFail
 } = userSlice.actions;
 
 export default userSlice.reducer

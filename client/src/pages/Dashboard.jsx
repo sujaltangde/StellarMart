@@ -8,6 +8,7 @@ import { Doughnut, Line } from 'react-chartjs-2';
 import { getAllProductsForAdmin } from '../actions/productAction'
 import { getAllOrders } from '../actions/orderAction'
 import { getAllUsers } from '../actions/userAction'
+import {MetaData} from '../components/MetaData'
 import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title,
   Tooltip,
@@ -83,6 +84,8 @@ export const Dashboard = () => {
     <>
 
       <div className='min-h-screen pt-14'>
+      <MetaData title="Dashboard" />
+
         {me ? <>
           <div className='flex justify-start '>
             <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>

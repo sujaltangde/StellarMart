@@ -19,49 +19,51 @@ export const UpdateOrder = () => {
   const { orderDetails, loading } = useSelector(state => state.newOrder)
   const [category, setCategory] = useState(orderDetails.orderStatus)
 
+  useEffect(() => {
+    dispatch(getOrderDetails(id))
+  },[dispatch])
   
 
-   
-  const address = `${orderDetails.shippingInfo.address}, ${orderDetails.shippingInfo.city}, ${orderDetails.shippingInfo.state}, ${orderDetails.shippingInfo.pinCode}`
+
+   let address = ""
+  if(orderDetails !== null){
+     address = `${orderDetails.shippingInfo.address}, ${orderDetails.shippingInfo.city}, ${orderDetails.shippingInfo.state}, ${orderDetails.shippingInfo.pinCode}`
+  }
    
   const updateOrderAdmin = () => {
-    console.log(category)
+
     const data = {
       status: category
     }
     dispatch(updateOrder(id, data))
   }
 
-  useEffect(() => {
-    
-     dispatch(getOrderDetails(id))
-    
 
-  }, [dispatch,id])
 
+  
 
   return (
     <>
       <MetaData title="Update Order" />
       <div className="min-h-screen pt-14">
-        {loading || orderDetails === null ? <Loader /> : <>
+        {loading ? <Loader /> : <>
           <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
             <BiMenuAltLeft size={44} />
           </span>
           <Sidebar sideTog={sideTog} />
 
-          <div className='flex md:flex-row flex-col md:pt-12 pt-6 pb-8 md:px-8 px-2 md:gap-0 gap-3'>
+          <div className='flex md:flex-row flex-col md:pt-12 pt-10 pb-8 md:px-8 px-2 md:gap-0 gap-3'>
             <div className='md:w-2/3 px-3 '>
               <div>
                 <p className='text-2xl font-medium'>Shipping Info</p>
                 <div className='md:pl-14 pt-4'>
                   <div className='grid grid-cols-2 md:w-2/5'>
                     <span className='font-semibold'>Name:</span>
-                    <span>{orderDetails.user && orderDetails.user.name}</span>
+                    <span>{orderDetails.user.name && orderDetails.user.name}</span>
                   </div>
                   <div className='grid grid-cols-2 md:w-2/5'>
                     <span className='font-semibold'>Phone:</span>
-                    <span>{orderDetails.shippingInfo.phoneNo}</span>
+                    <span>{orderDetails.shippingInfo.phoneNo && orderDetails.shippingInfo.phoneNo}</span>
                   </div>
                   <div className='grid grid-cols-2 md:w-2/5 pb-3'>
                     <span className='font-semibold'>Address:</span>
@@ -71,22 +73,22 @@ export const UpdateOrder = () => {
                 </div>
                 <p className='text-2xl font-medium'>Payment</p>
                 <div className='md:pl-14 pt-4'>
-                  {orderDetails.paymentInfo.status ? <p className='text-2xl text-green-500 underline'>Paid</p> : <p className='text-2xl text-red-500 underline' >Not Paid</p>}
+                  {orderDetails.paymentInfo.status && orderDetails.paymentInfo.status ? <p className='text-2xl text-green-500 underline'>Paid</p> : <p className='text-2xl text-red-500 underline' >Not Paid</p>}
                   <div className='grid grid-cols-2 md:w-2/5 pt-3 pb-3 '>
                     <span className='font-semibold'>Amount:</span>
-                    <span>₹{orderDetails && orderDetails.totalPrice}</span>
+                    <span>₹{orderDetails.totalPrice && orderDetails.totalPrice}</span>
                   </div>
                 </div>
 
                 <p className='text-2xl font-medium'>Order Status</p>
                 <div className='md:pl-14 pt-4'>
-                  <p className={`${orderDetails.orderStatus === "Processing" ? "text-blue-600" : "text-green-600"} text-xl`} >{orderDetails.orderStatus}</p>
+                  <p className={`${orderDetails.orderStatus && orderDetails.orderStatus === "Processing" ? "text-blue-600" : "text-green-600"} text-xl`} >{orderDetails.orderStatus && orderDetails.orderStatus}</p>
                 </div>
 
 
                 <div className='pt-8'>
                   <p className='text-2xl font-medium'>Order Items:</p>
-                  {
+                  {orderDetails.orderItems &&
                     orderDetails.orderItems.map((item, index) => (
                       <div key={index} className='flex justify-between md:pr-4 md:pl-20 pt-3'>
                         <div className='flex gap-6 w-2/3 items-center '>

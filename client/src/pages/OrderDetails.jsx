@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import { getOrderDetails } from '../actions/orderAction'
@@ -11,13 +11,17 @@ export const OrderDetails = () => {
   const dispatch = useDispatch()
   const { orderDetails, loading } = useSelector(state => state.newOrder)
 
-  
+
+
 
 
 
   useEffect(() => {
-    dispatch(getOrderDetails(id))
-  },[dispatch])
+    if (orderDetails && orderDetails._id !== id) {
+      dispatch(getOrderDetails(id))
+     
+    }
+  }, [dispatch,id,orderDetails])
 
   const convertDateFormat = (inputDate) => {
     const parts = inputDate.split('-');
@@ -42,7 +46,9 @@ export const OrderDetails = () => {
           loading ? <Loader /> :
 
             <>
-              <div className='md:px-14 px-2 md:pt-6 pt-2'>
+
+              
+                 <div className='md:px-14 px-2 md:pt-6 pt-2'>
                 <div>
                   <p className=' text-2xl text-blue-800 '>Order #{orderDetails._id}</p>
                 </div>
@@ -77,8 +83,8 @@ export const OrderDetails = () => {
                 </div>
                 <div className='grid grid-cols-1 gap-5 pt-4 pb-8'>
                   {
-                    orderDetails.orderItems.map((item, i) => (
-                      <div className='grid grid-cols-2 '>
+                    orderDetails.orderItems.map((item) => (
+                      <div key={item.name} className='grid grid-cols-2 '>
                         <div className='flex flex-row gap-5 items-center'>
                           <img src={item.image} className='md:w-28 md:h-28 w-20 h-20 ' alt="" />
                           <p>{item.name}</p>
@@ -94,7 +100,8 @@ export const OrderDetails = () => {
                   }
                 </div>
 
-              </div>
+              </div> 
+                
             </>
 
         }
