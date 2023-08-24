@@ -28,11 +28,11 @@ import { useNavigate } from 'react-router-dom';
     <>
       <form onSubmit={searchSubmitHandler} className='md:w-[30vw] w-[70vw]  flex  rounded '>
 
-      <input value={keyword}  autoFocus placeholder='Search for Products' className='px-2 bg-gray-100  py-2 outline-none placeholder:font-extrabold w-full rounded rounded-e-none border border-gray-400 ' type="text"
+      <input value={keyword}   placeholder='Search for Products' className='px-2 bg-gray-100  py-2 outline-none placeholder:font-extrabold w-full rounded-l border border-gray-400 ' type="text"
       onChange={(e)=> setKeyword(e.target.value)}
       />
 
-      <input value="Search" type="submit" className='bg-blue-600 hover:bg-blue-400 rounded cursor-pointer rounded-s-none px-4 text-white' />
+      <input value="Search" type="submit" className='bg-blue-600 hover:bg-blue-400 rounded rounded-l-none cursor-pointer  px-4 text-white' />
         
       </form>
 

@@ -36,6 +36,7 @@ import { OrdersList } from "./pages/OrdersList"
 import { UpdateOrder } from "./pages/UpdateOrder"
 import { UserList } from "./pages/UserList"
 import { UpdateUser } from "./pages/UpdateUser"
+import { ProductReviews } from "./pages/ProductReviews"
 
 
 
@@ -56,7 +57,7 @@ function App() {
       }
     }
 
-    const { data } = await axios.get("http://localhost:4000/api/v1/stripeApiKey", config)
+    const { data } = await axios.get("https://stellarmart-b.onrender.com/api/v1/stripeApiKey", config)
     setStripeApiKey(data.stripeApiKey)
 
   }
@@ -143,6 +144,9 @@ function App() {
         <Route path="/admin/users" element={<UserList/>} />
 
         <Route path="/admin/user/:id" element={<UpdateUser/>} />
+
+
+        <Route path="/admin/reviews" element={<ProductReviews/>} />
 
 
       </Routes>

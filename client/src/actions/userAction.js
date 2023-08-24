@@ -15,7 +15,7 @@ export const login = (email, password) => async (dispatch) => {
         };
 
 
-        const { data } = await axios.post(`http://localhost:4000/api/v1/login`, { email, password }, config)
+        const { data } = await axios.post(`https://stellarmart-b.onrender.com/api/v1/login`, { email, password }, config)
 
         localStorage.setItem('token', data.token)
 
@@ -39,7 +39,7 @@ export const register = (userData) => async (dispatch) => {
 
         dispatch(registerRequest())
 
-        const { data } = await axios.post(`http://localhost:4000/api/v1/register`, userData)
+        const { data } = await axios.post(`https://stellarmart-b.onrender.com/api/v1/register`, userData)
 
         localStorage.setItem('token', data.token)
 
@@ -69,7 +69,7 @@ export const isLogin = () => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.get(`http://localhost:4000/api/v1/isLogin`, config);
+        const { data } = await axios.get(`https://stellarmart-b.onrender.com/api/v1/isLogin`, config);
 
         dispatch(setIsLoginTrue())
 
@@ -92,7 +92,7 @@ export const me = () => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.get("http://localhost:4000/api/v1/me", config)
+        const { data } = await axios.get("https://stellarmart-b.onrender.com/api/v1/me", config)
 
         dispatch(getMeSuccess(data.user));
 
@@ -113,7 +113,7 @@ export const updateMe = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put("http://localhost:4000/api/v1/me/update", userData, config);
+        const { data } = await axios.put("https://stellarmart-b.onrender.com/api/v1/me/update", userData, config);
 
         dispatch(updateProfileSuccess(data));
         dispatch(getMeSuccess(data.user))
@@ -137,7 +137,7 @@ export const changePassword = (passData) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.put("http://localhost:4000/api/v1/password/update",passData,config) ;
+        const {data} = await axios.put("https://stellarmart-b.onrender.com/api/v1/password/update",passData,config) ;
 
         dispatch(changePasswordSuccess()) ;
 
@@ -161,7 +161,7 @@ export const getAllUsers = () => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.get("http://localhost:4000/api/v1/admin/users",config) ;
+        const {data} = await axios.get("https://stellarmart-b.onrender.com/api/v1/admin/users",config) ;
 
         dispatch(allUsersSuccess(data.AllUsers))
 
@@ -182,7 +182,7 @@ export const getUserDetails = (id) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.get(`http://localhost:4000/api/v1/admin/user/${id}`,config)
+        const {data} = await axios.get(`https://stellarmart-b.onrender.com/api/v1/admin/user/${id}`,config)
 
         dispatch(userDetailsSuccess(data.user)) ;
 
@@ -203,7 +203,7 @@ export const updateUser = (id, newdata) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.put(`http://localhost:4000/api/v1/admin/user/${id}`, newdata, config) ;
+        const {data} = await axios.put(`https://stellarmart-b.onrender.com/api/v1/admin/user/${id}`, newdata, config) ;
 
         dispatch(userUpdatedSuccess(data.success)) ;
         dispatch(getUserDetails(id))
@@ -227,7 +227,7 @@ export const deleteUser = (id) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.delete(`http://localhost:4000/api/v1/admin/user/${id}`, config) ;
+        const {data} = await axios.delete(`https://stellarmart-b.onrender.com/api/v1/admin/user/${id}`, config) ;
 
         dispatch(userDeleteSuccess(data.success)) ;
         toast.success("User Deleted Successfully !") ;

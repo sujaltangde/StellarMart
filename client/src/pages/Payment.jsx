@@ -48,7 +48,7 @@ export const Payment = () => {
                 }
             }
             
-            const {data} = await axios.post("http://localhost:4000/api/v1/payment/process",paymentData , config)
+            const {data} = await axios.post("https://stellarmart-b.onrender.com/api/v1/payment/process",paymentData , config)
             const client_secret = data.client_secret ;
 
             if(!stripe || !elements) return ;
@@ -71,7 +71,7 @@ export const Payment = () => {
 
             if(result.error){
                 payBtn.current.disabled = false ;
-                toast.error(result.error.message);
+                // toast.error(result.error.message);
             }else{
                 if(result.paymentIntent.status === "succeeded"){
                     order.paymentInfo = {

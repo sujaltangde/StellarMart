@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, adminProductRequest, adminProductSuccess, adminProductFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail } from '../slices/ProductSlice.js'
+import { allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, adminProductRequest, adminProductSuccess, adminProductFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail, allReviewRequest, allReviewSuccess, allReviewFail } from '../slices/ProductSlice.js'
 import { productDetailsRequest, productDetailsSuccess, productDetailsFail, } from '../slices/ProductDetailSlice.js'
 import { toast } from 'react-toastify'
 
@@ -9,10 +9,10 @@ export const getProducts = (keyword = "", currentPage = 1, price = [0, 25000], c
     try {
         dispatch(allProductRequest());
 
-        let link = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${ratings}`
+        let link = `https://stellarmart-b.onrender.com/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${ratings}`
 
         if (category) {
-            link = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&rating[gte]=${ratings}`
+            link = `https://stellarmart-b.onrender.com/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&rating[gte]=${ratings}`
         }
 
 
@@ -31,7 +31,7 @@ export const getProducts = (keyword = "", currentPage = 1, price = [0, 25000], c
 export const getProductDetails = (id) => async (dispatch) => {
     try {
         dispatch(productDetailsRequest())
-        const { data } = await axios.get(`http://localhost:4000/api/v1/products/${id}`)
+        const { data } = await axios.get(`https://stellarmart-b.onrender.com/api/v1/products/${id}`)
 
         dispatch(productDetailsSuccess(data.product));
 
@@ -52,7 +52,7 @@ export const newReview = (reviewData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put("http://localhost:4000/api/v1/review", reviewData, config);
+        const { data } = await axios.put("https://stellarmart-b.onrender.com/api/v1/review", reviewData, config);
 
         dispatch(newReviewSuccess(data.success))
         toast.success("Review Added !")
@@ -74,7 +74,7 @@ export const getAllProductsForAdmin = () => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.get("http://localhost:4000/api/v1/admin/products", config)
+        const { data } = await axios.get("https://stellarmart-b.onrender.com/api/v1/admin/products", config)
         
         dispatch(adminProductSuccess(data.products));
 
@@ -95,7 +95,7 @@ export const createNewProduct = (productData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post("http://localhost:4000/api/v1/products/new", productData, config)
+        const { data } = await axios.post("https://stellarmart-b.onrender.com/api/v1/products/new", productData, config)
         toast.success("New Product Created !")
         dispatch(newProductSuccess(data));
     } catch (err) {
@@ -116,7 +116,7 @@ export const deleteProduct = (id) => async (dispatch) => {
                 }
             }
 
-            const { data } = await axios.delete(`http://localhost:4000/api/v1/products/${id}`,config) ;
+            const { data } = await axios.delete(`https://stellarmart-b.onrender.com/api/v1/products/${id}`,config) ;
 
             dispatch(deleteProductSuccess(data))
             toast.success("Product Deleted !");
@@ -139,7 +139,7 @@ export const updateProduct = (id,newData) => async (dispatch)=>{
             }
         }
 
-        const { data } = await axios.put(`http://localhost:4000/api/v1/products/${id}`,newData,config) ;
+        const { data } = await axios.put(`https://stellarmart-b.onrender.com/api/v1/products/${id}`,newData,config) ;
         
         dispatch(updateProductSuccess(data)) ;
         dispatch(getAllProductsForAdmin())
@@ -153,6 +153,43 @@ export const updateProduct = (id,newData) => async (dispatch)=>{
     }
 }
 
+
+// Get All Reviews --Admin
+export const getAllReviews = (id) => async (dispatch) => {
+    try{
+        dispatch(allReviewRequest())
+
+        const {data} = await axios.get(`https://stellarmart-b.onrender.com/api/v1/reviews?id=${id}`)
+
+        dispatch(allReviewSuccess(data.reviews)) ;
+
+    }catch(err){
+        dispatch(allReviewFail(err.response.data.message))
+    }
+}
+
+
+// Delete Reviews of Product --Admin
+export const deleteProductReviews = (id) => async (dispatch) => {
+    try{
+        dispatch(deleteReviewRequest())
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+
+        const {data} = await axios.delete(`https://stellarmart-b.onrender.com/api/v1/reviews?id=${id}`,config)
+
+        dispatch(deleteReviewSuccess(data)) ;
+        toast.success("Reviews Deleted !")
+
+    }catch(err){
+        dispatch(deleteReviewFail(err.response.data.message))
+        toast.error(err.response.data.message)
+    }
+}
 
 
 

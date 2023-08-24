@@ -14,7 +14,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
             }
         }
 
-        const {data} = await axios.post("http://localhost:4000/api/v1/order/new",order,config)
+        const {data} = await axios.post("https://stellarmart-b.onrender.com/api/v1/order/new",order,config)
 
         dispatch(createOrderSuccess(data.order)) ;
         toast.success("Payment successful! Thank you for your purchase.") ;
@@ -35,7 +35,7 @@ export const myOrders = () => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.get("http://localhost:4000/api/v1/orders/me",config)
+        const {data} = await axios.get("https://stellarmart-b.onrender.com/api/v1/orders/me",config)
 
         dispatch(myOrderSuccess(data.orders))
 
@@ -55,7 +55,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.get(`http://localhost:4000/api/v1/order/${id}`,config) ;
+        const {data} = await axios.get(`https://stellarmart-b.onrender.com/api/v1/order/${id}`,config) ;
 
         dispatch(orderDetailsSuccess(data.order)) ;
         
@@ -76,7 +76,7 @@ export const getAllOrders = () => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.get("http://localhost:4000/api/v1/admin/orders",config) ;
+        const {data} = await axios.get("https://stellarmart-b.onrender.com/api/v1/admin/orders",config) ;
 
         dispatch(allOrderSuccess(data.orders))
 
@@ -97,7 +97,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.put(`http://localhost:4000/api/v1/admin/order/${id}`,order,config) ;
+        const {data} = await axios.put(`https://stellarmart-b.onrender.com/api/v1/admin/order/${id}`,order,config) ;
 
         dispatch(updateOrderSuccess(data)) ;
         dispatch(getOrderDetails(id)) ;
@@ -121,7 +121,7 @@ export const deleteOrder = (id) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.delete(`http://localhost:4000/api/v1/admin/order/${id}`,config) ;
+        const {data} = await axios.delete(`https://stellarmart-b.onrender.com/api/v1/admin/order/${id}`,config) ;
 
         dispatch(deleteOrderSuccess(data)) ;
         dispatch(getAllOrders()) ;

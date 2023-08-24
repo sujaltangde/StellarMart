@@ -108,6 +108,29 @@ const productSlice = createSlice({
             state.success = action.payload.success
         },
 
+        deleteReviewRequest: (state)=>{
+            state.loading = true
+        },
+        deleteReviewSuccess: (state, action)=>{
+            state.loading = false ;
+            state.success = action.payload.success
+        },
+        deleteReviewFail: (state, action)=>{
+            state.loading = false
+            state.error = action.payload
+        },
+        allReviewRequest: (state)=>{
+            state.loading = true
+        },
+        allReviewSuccess: (state, action)=>{
+            state.loading = false ;
+            state.allReviews = action.payload
+        },
+        allReviewFail: (state, action)=>{
+            state.loading = false
+            state.error = action.payload
+        },
+
 
         clearErrors: (state) => {
             state.error = null
@@ -117,6 +140,6 @@ const productSlice = createSlice({
 })
 
 export const { allProductRequest, allProductSuccess, allProductFail, clearErrors, productDetailsRequest, productDetailsSuccess, productDetailsFail, newReviewRequest, newReviewSuccess, newReviewFail, newReviewReset, adminProductRequest, adminProductSuccess, adminProductFail, newProductRequest, newProductSuccess, newProductFail,
-    deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail} = productSlice.actions ;
+    deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail, allReviewRequest, allReviewSuccess, allReviewFail} = productSlice.actions ;
 
 export default productSlice.reducer ;
