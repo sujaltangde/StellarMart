@@ -47,6 +47,12 @@ export const Dashboard = () => {
 },[dispatch])
 
 
+console.log(allOrders)
+
+let totalAmount = 0 ;
+allOrders && allOrders.forEach(item => [
+  totalAmount += item.totalPrice
+])
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -55,7 +61,7 @@ export const Dashboard = () => {
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
         hoverBackgroundColor: ["rgb(197, 72, 49"],
-        data: [0, 4000]
+        data: [0, totalAmount]
       }
     ]
   }
@@ -100,8 +106,8 @@ export const Dashboard = () => {
                 <p className='text-center text-2xl'>Dashboard</p>
               </div>
               <div className='flex flex-col text-center font-medium  bg-blue-500 text-white py-2'>
-                <p>Total Amount</p>
-                <p>₹ 20000 </p>
+                <p>Total Revenue</p>
+                <p>₹ {totalAmount} </p>
               </div>
 
               <div className='grid md:grid-cols-3 grid-cols-1 text-xl md:gap-0 gap-3 justify-items-center md:px-64 py-6'>

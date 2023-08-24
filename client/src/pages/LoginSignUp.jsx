@@ -232,7 +232,7 @@ export const LoginSignUp = () => {
 
                 <div className='relative pl-3 rounded hover:bg-gray-100 border border-gray-500 py-1 flex justify-around items-center'>
 
-                  <label htmlFor="fileinput" className='cursor-pointer w-full text-gray-500 flex justify-center items-center gap-4 py-1'>
+                  <label htmlFor="fileinput" className='cursor-pointer w-full text-gray-500 flex justify-center items-center flex-wrap gap-4 py-1'>
                     <img src={avatarPreview} className='w-6' alt="" />
                     {avatarName}
 

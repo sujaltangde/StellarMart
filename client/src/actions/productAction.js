@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, adminProductRequest, adminProductSuccess, adminProductFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail, allReviewRequest, allReviewSuccess, allReviewFail } from '../slices/ProductSlice.js'
+import { allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, adminProductRequest, adminProductSuccess, adminProductFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail, allReviewRequest, allReviewSuccess, allReviewFail, getCategoryProductsRequest, getCategoryProductsSuccess, getCategoryProductsFail } from '../slices/ProductSlice.js'
 import { productDetailsRequest, productDetailsSuccess, productDetailsFail, } from '../slices/ProductDetailSlice.js'
 import { toast } from 'react-toastify'
 
@@ -170,7 +170,7 @@ export const getAllReviews = (id) => async (dispatch) => {
 
 
 // Delete Reviews of Product --Admin
-export const deleteProductReviews = (id) => async (dispatch) => {
+export const deleteReviews = (reviewId,productId) => async (dispatch) => {
     try{
         dispatch(deleteReviewRequest())
 
@@ -180,10 +180,11 @@ export const deleteProductReviews = (id) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.delete(`https://stellarmart-b.onrender.com/api/v1/reviews?id=${id}`,config)
+        const {data} = await axios.delete(`https://stellarmart-b.onrender.com/api/v1/reviews?id=${reviewId}&productId=${productId}`,config)
 
         dispatch(deleteReviewSuccess(data)) ;
-        toast.success("Reviews Deleted !")
+        dispatch(getAllReviews(productId))
+        toast.success("Review Deleted !")
 
     }catch(err){
         dispatch(deleteReviewFail(err.response.data.message))

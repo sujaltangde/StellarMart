@@ -28,7 +28,8 @@ export const Product = ({ product }) => {
             <div className='flex z-0 flex-wrap items-center gap-2' >
               <ReactStars {...options} /> <span className='md:text-sm text-xs'>({product.numOfReviews} Reviews)</span>
             </div>
-            <span className='text-lg text-orange-600 font-bold'>{`₹${product.price}`}</span>
+            <span className='text-lg text-orange-600 font-bold'>{`${product.price}`}</span>
+            <span className='text-lg text-orange-600 font-bold'>₹</span>
           </div>
 
         </div>

@@ -12,6 +12,8 @@ const productSlice = createSlice({
         success: null ,
         adminProducts: [],     
         newProduct: {},   
+        allReviews: [],
+        categoryProducts: [],
     },
     reducers: {
         allProductRequest: (state) => {
@@ -119,8 +121,10 @@ const productSlice = createSlice({
             state.loading = false
             state.error = action.payload
         },
+
         allReviewRequest: (state)=>{
-            state.loading = true
+            state.loading = true ;
+            state.allReviews = []
         },
         allReviewSuccess: (state, action)=>{
             state.loading = false ;
@@ -129,6 +133,18 @@ const productSlice = createSlice({
         allReviewFail: (state, action)=>{
             state.loading = false
             state.error = action.payload
+        },
+
+        getCategoryProductsRequest: (state)=>{
+            state.loading = true ;
+        },
+        getCategoryProductsSuccess: (state, action)=>{
+            state.loading = false ;
+            state.categoryProducts = action.payload ;
+        },
+        getCategoryProductsFail: (state, action)=>{
+            state.loading = false ;
+            state.error = action.payload ;
         },
 
 
@@ -140,6 +156,6 @@ const productSlice = createSlice({
 })
 
 export const { allProductRequest, allProductSuccess, allProductFail, clearErrors, productDetailsRequest, productDetailsSuccess, productDetailsFail, newReviewRequest, newReviewSuccess, newReviewFail, newReviewReset, adminProductRequest, adminProductSuccess, adminProductFail, newProductRequest, newProductSuccess, newProductFail,
-    deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail, allReviewRequest, allReviewSuccess, allReviewFail} = productSlice.actions ;
+    deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail, allReviewRequest, allReviewSuccess, allReviewFail, getCategoryProductsRequest, getCategoryProductsSuccess, getCategoryProductsFail} = productSlice.actions ;
 
 export default productSlice.reducer ;
