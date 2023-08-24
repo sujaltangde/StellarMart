@@ -193,6 +193,22 @@ export const deleteReviews = (reviewId,productId) => async (dispatch) => {
 }
 
 
+// Get Category Products
+export const getCategoryProducts = (category) => async (dispatch) => {
+    try{
+        dispatch(getCategoryProductsRequest())
+
+
+        const {data} = await axios.get(`https://stellarmart-b.onrender.com/api/v1/productsByCategory?category=${category}`) ;
+
+        dispatch(getCategoryProductsSuccess(data.products)) ;
+       
+
+    }catch(err){
+        dispatch(getCategoryProductsFail(err.response.data.message))
+    }
+}
+
 
 // Clearing Errors
 export const clearError = () => async (dispatch) => {

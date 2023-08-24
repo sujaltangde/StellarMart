@@ -3,7 +3,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductDetails } from '../actions/productAction';
+import { getProductDetails, getCategoryProducts } from '../actions/productAction';
 import ReactStars from 'react-rating-stars-component'
 import { ReviewCard } from '../components/ReviewCard';
 import { BiComment } from 'react-icons/bi'
@@ -18,24 +18,34 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Rating } from '@mui/material';
 import { newReviewReset } from '../slices/ProductSlice'
+import { Link } from 'react-router-dom';
+
 
 export const ProductDetails = () => {
 
     const { id } = useParams();
 
     const dispatch = useDispatch()
-    const { success } = useSelector(state => state.products)
+    const { success, categoryProducts } = useSelector(state => state.products)
 
     const { product, loading, error } = useSelector((state) => state.productDetails)
+    
     const [quantity, setQuantity] = useState(1);
     const [open, setOpen] = useState(false)
-    const [rating, setRating] = useState(0) ;
+    const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("")
 
     useEffect(() => {
         dispatch(getProductDetails(id))
         dispatch(newReviewReset())
-    }, [dispatch,success])
+
+        if(product.category){
+            dispatch(getCategoryProducts(product.category))
+        }
+
+    }, [dispatch, success, product.category,id])
+
+
 
 
     const options = {
@@ -76,14 +86,14 @@ export const ProductDetails = () => {
     }
 
     const reviewSubmitHandler = () => {
-        const myForm = new FormData() ;
+        const myForm = new FormData();
 
-        myForm.set("rating",rating) ;
-        myForm.set("comment",comment)
-        myForm.set("productId",id) ;
+        myForm.set("rating", rating);
+        myForm.set("comment", comment)
+        myForm.set("productId", id);
 
         dispatch(newReview(myForm))
-        
+
         setOpen(false)
     }
 
@@ -159,7 +169,7 @@ export const ProductDetails = () => {
                                     </div>
 
 
-                                    
+
 
 
                                     <div className='flex gap-2 pl-8 text-lg font-medium border border-x-0 pt-3 pb-4 border-gray-400 border-t-0'>Status:
@@ -176,9 +186,9 @@ export const ProductDetails = () => {
                                         <button onClick={submitReviewToggle} className='bg-blue-600 text-white text-xl font-medium px-3 rounded py-1' >
                                             Submit Review
                                         </button>
-                                       
+
                                     </div>
-                                   
+
 
 
                                 </div>
@@ -191,7 +201,7 @@ export const ProductDetails = () => {
                             </div>
 
 
-                            <div className='pb-44'>
+                            <div className='pb-14'>
                                 <div className='text-2xl pt-12 pb-6 flex justify-center items-center '>
 
                                     <span className='border flex justify-center items-center border-gray-500 pb-1 border-x-0 border-t-0 px-12' >
@@ -202,24 +212,23 @@ export const ProductDetails = () => {
                                 <Dialog open={open} onClose={submitReviewToggle} aria-labelledby='simple-dialog-title'>
                                     <DialogTitle>Submit Review</DialogTitle>
                                     <DialogContent className='flex flex-col gap-3 '>
-                                        <Rating onChange={(e) => setRating(e.target.value)} 
+                                        <Rating onChange={(e) => setRating(e.target.value)}
                                             value={rating}
 
-                                          />
-                                          <textarea onChange={(e)=> setComment(e.target.value)} className='outline-none border border-gray-300 px-2 py-1' cols="30" rows="5">
+                                        />
+                                        <textarea onChange={(e) => setComment(e.target.value)} className='outline-none border border-gray-300 px-2 py-1' cols="30" rows="5">
 
-                                          </textarea>
+                                        </textarea>
                                     </DialogContent>
                                     <DialogActions className='flex gap-5 font-sans'>
                                         <span onClick={reviewSubmitHandler} className=' font-semibold rounded  py-1 text-blue-600 cursor-pointer'>Submit</span>
                                         <span onClick={submitReviewToggle} className='font-semibold text-red-600 cursor-pointer rounded  py-1' >Cancel</span>
-                                        
+
                                     </DialogActions>
                                 </Dialog>
 
                                 {
                                     product.reviews && product.reviews[0] ? (
-                                        // <div className=' grid md:grid-cols-4 grid-cols-1 justify-items-center gap-3 md:pt-3 md:px-5 px-4 '>
                                         <div className=' flex flex-wrap justify-center items-center '>
                                             {
                                                 product.reviews &&
@@ -228,6 +237,31 @@ export const ProductDetails = () => {
                                         </div>
                                     ) : <p className='pt-14 text-xl text-center'>No Reviews Yet</p>
                                 }
+                            </div>
+                            <div className='pb-20'>
+                                <p className='text-center text-xl pb-6'>In {product.category}'s</p>
+                                <div className='flex overflow-auto md:gap-12 gap-3 justify-center  items-center'>
+                                    {categoryProducts.length > 0 ? categoryProducts.filter((e) => (e._id !== id)).map((item) => (
+                                        <Link to={`/product/${item._id}`}  >
+                                        <div key={item._id} className=' border rounded-md p-2 grid gird-cols-1 justify-items-start' >
+                                            <div className='  '>
+                                                <img src={item.images[0].url} className='  w-44 h-44 ' alt={item.name} />
+                                            </div>
+                                            <div className='flex w-4/5 flex-wrap'>
+                                                {item.name}
+                                            </div>
+                                            <div>
+                                                <Rating readOnly value={item.rating} size="small" />
+                                            </div>
+                                            <div>
+                                                ₹{item.price}
+                                            </div>
+
+                                        </div>
+                                        </Link>
+                                    )) : null}
+
+                                </div>
                             </div>
                         </>
 

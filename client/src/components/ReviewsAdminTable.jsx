@@ -22,7 +22,7 @@ export const ReviewsAdminTable = ({reviews,productId}) => {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 border-b  ">
                     <tr className=''>
                         <th scope="col" className="px-6 text-sm py-3">
-                            Revieww ID
+                            Review ID
                         </th>
                         <th scope="col" className="px-6 text-sm py-3">
                             User

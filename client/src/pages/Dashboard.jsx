@@ -47,7 +47,7 @@ export const Dashboard = () => {
 },[dispatch])
 
 
-console.log(allOrders)
+
 
 let totalAmount = 0 ;
 allOrders && allOrders.forEach(item => [

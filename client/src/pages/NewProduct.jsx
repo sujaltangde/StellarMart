@@ -27,15 +27,15 @@ export const NewProduct = () => {
 
 
     const categories = [
-        "Laptop",
+        "Electronics",
+        "Mens",
+        "Womens",
+        "Books",
         "Footwear",
-        "Bottom",
-        "Tops",
-        "Attire",
         "Camera",
         "SmartPhones"
     ]
-
+ 
     const createProductSubmitHandler = (e) => {
         e.preventDefault();
 
@@ -51,8 +51,6 @@ export const NewProduct = () => {
         });
 
         dispatch(createNewProduct(myForm));
-
-        // console.log(myForm)
         
         setName("")
         setPrice("")

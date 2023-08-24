@@ -76,7 +76,8 @@ exports.getAllProducts = async (req, res) => {
 exports.getCategoryProducts = async (req, res) => {
     try {
 
-        const products = await Product.find({category:req.body.category}) 
+        const products = await Product.find({category:req.query.category}) 
+        console.log(req.query.category)
 
         res.status(200).json({
             success: true,

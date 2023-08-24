@@ -16,11 +16,11 @@ export const AllProducts = () => {
 
 
   const categories = [
-    "Laptop",
+    "Electronics",
+    "Mens",
+    "Womens",
+    "Books",
     "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
     "Camera",
     "SmartPhones"
   ]
