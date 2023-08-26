@@ -1,7 +1,8 @@
 import React from 'react'
-import { IoIosArrowDown } from 'react-icons/Io'
 import { Link as LinkSr } from 'react-scroll'
 import  Search  from './Search'
+import {MdOutlineKeyboardArrowDown} from 'react-icons/md'
+
 
 export const HomeHeader = () => {
     return (
@@ -16,7 +17,7 @@ export const HomeHeader = () => {
                  
                     <LinkSr spy={true} smooth={true} offset={-30} duration={300} to="products">
                         <button className='md:mt-4 mt-4 font-bold text-xl border md:px-12 px-8 py-2 bg-blue-600 text-white hover:bg-blue-800  z-10  '>
-                            <IoIosArrowDown className='animate-bounce z-10 ' />
+                            <MdOutlineKeyboardArrowDown className='animate-bounce z-10 ' />
                         </button>
                     </LinkSr>
 

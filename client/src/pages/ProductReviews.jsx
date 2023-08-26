@@ -4,6 +4,7 @@ import { getAllReviews } from '../actions/productAction'
 import { Loader } from '../components/Loader'
 import { ReviewsAdminTable } from '../components/ReviewsAdminTable'
 import { BiMenuAltLeft } from 'react-icons/bi'
+import { AiOutlineIdcard } from 'react-icons/ai'
 import { Sidebar } from '../components/Sidebar'
 import { MetaData } from '../components/MetaData'
 
@@ -32,7 +33,7 @@ export const ProductReviews = () => {
 
       <MetaData title="Product Reviews" />
       <div className='min-h-screen pt-14'>
-        <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
+        <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer text-orange-500 z-20 fixed '>
           <BiMenuAltLeft size={44} />
         </span>
         <Sidebar sideTog={sideTog} />
@@ -46,7 +47,7 @@ export const ProductReviews = () => {
           <div className='gap-4 flex flex-col md:w-1/3'>
 
             <div className='relative pl-3 rounded border border-gray-500 py-1 flex justify-around items-center'>
-              <BiMenuAltLeft className='text-gray-500 ' size={26} />
+              <AiOutlineIdcard className='text-gray-500 ' size={26} />
               <input
                 type="text"
                 placeholder='Product Id'

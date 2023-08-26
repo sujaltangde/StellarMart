@@ -44,14 +44,13 @@ export const UpdateProduct = () => {
 
 
     const categories = [
-        "Laptop",
+        "Electronics",
+        "Mens",
+        "Womens",
+        "Books",
         "Footwear",
-        "Bottom",
-        "Tops",
-        "Attire",
-        "Camera",
-        "SmartPhones",
-        "Electronics"
+        "Home",
+        "Sports"
     ]
 
 
@@ -103,7 +102,7 @@ export const UpdateProduct = () => {
 
 <MetaData title="Update Product" />
             <div className='min-h-screen pt-14 bg-gray-200 pb-16'>
-                <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer z-20 fixed '>
+                <span onClick={() => setSideTog(!sideTog)} className='cursor-pointer text-orange-500 z-20 fixed '>
                     <BiMenuAltLeft size={44} />
                 </span>
                 <Sidebar sideTog={sideTog} />
@@ -180,7 +179,7 @@ export const UpdateProduct = () => {
 
                                 <label htmlFor="fileinput" className='cursor-pointer w-full text-gray-500 flex justify-center text-center items-center gap-4 py-1'>
 
-                                    {oldImages.length === 0 ? "Select Images" : `${oldImages.length} images selected`}
+                                    {oldImages.length === 0 ? "Select Images" : `${oldImages.length} images`}
                                 </label>
                                 <input type="file"
                                     name="avatar"
@@ -192,12 +191,7 @@ export const UpdateProduct = () => {
                             </div>
                             <div className='flex flex-wrap justify-start items-start gap-2 pt-1'>
                                 {oldImages.map((image, index) => (
-                                    <div key={index} className='flex'>
-                                        <span onClick={() => {
-                                            const newImagesPre = oldImages.filter((img) => img !== image)
-                                            setImagesPreview(newImagesPre)
-                                            setImages(newImagesPre)
-                                        }} className='text-red-700 font-bold cursor-pointer' > <RxCross2 /> </span>
+                                    <div key={index} className='flex'>                                        
                                         <img key={index} src={image.url} className='w-14 h-14' alt="Product Preview" />
                                     </div>
                                 ))}
