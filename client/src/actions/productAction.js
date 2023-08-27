@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, adminProductRequest, adminProductSuccess, adminProductFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail, allReviewRequest, allReviewSuccess, allReviewFail, getCategoryProductsRequest, getCategoryProductsSuccess, getCategoryProductsFail } from '../slices/ProductSlice.js'
+import { allProductRequest, allProductSuccess, allProductFail, clearErrors, newReviewRequest, newReviewSuccess, newReviewFail, adminProductRequest, adminProductSuccess, adminProductFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess,updateProductFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail, allReviewRequest, allReviewSuccess, allReviewFail, getCategoryProductsRequest, getCategoryProductsSuccess, getCategoryProductsFail, everyProductRequest, everyProductSuccess, everyProductFail } from '../slices/ProductSlice.js'
 import { productDetailsRequest, productDetailsSuccess, productDetailsFail, } from '../slices/ProductDetailSlice.js'
 import { toast } from 'react-toastify'
 
@@ -9,14 +9,16 @@ export const getProducts = (keyword = "", currentPage = 1, price = [0, 25000], c
     try {
         dispatch(allProductRequest());
 
-        let link = `https://stellarmart-b.onrender.com/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${ratings}`
+        let link = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${ratings}`
 
         if (category) {
-            link = `https://stellarmart-b.onrender.com/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&rating[gte]=${ratings}`
+            link = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&rating[gte]=${ratings}`
         }
 
 
-        const { data } = await axios.get(link)
+        const { data } = await axios.get(link) 
+
+        console.log(data)
 
         // console.log(data)
         dispatch(allProductSuccess(data));
@@ -206,6 +208,22 @@ export const getCategoryProducts = (category) => async (dispatch) => {
 
     }catch(err){
         dispatch(getCategoryProductsFail(err.response.data.message))
+    }
+}
+
+
+// Get Every Product 
+export const getEveryProduct = () => async (dispatch) => {
+    try{
+        dispatch(everyProductRequest())
+
+        const {data} = await axios.get("https://stellarmart-b.onrender.com/api/v1/getEveryProduct") ;
+
+        dispatch(everyProductSuccess(data))
+
+
+    }catch(err){
+        dispatch(everyProductFail(err.response.data.message))
     }
 }
 

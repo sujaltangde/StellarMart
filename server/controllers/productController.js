@@ -60,6 +60,22 @@ exports.getAllProducts = async (req, res) => {
 
         const filteredProductsCount = products.length;
 
+//         const resultPerPage = 8;
+//   const productsCount = await Product.countDocuments();
+
+//   const apiFeature = new ApiFeatures(Product.find(), req.query)
+//     .search()
+//     .filter();
+
+//   let products = await apiFeature.query;
+
+//   let filteredProductsCount = products.length;
+
+//   apiFeature.pagination(resultPerPage);
+
+//   products = await apiFeature.query;
+
+
         res.status(200).json({
             success: true,
             products,
@@ -382,4 +398,24 @@ exports.deleteReview = async (req, res) => {
         })
     }
 
+}
+
+
+// Get Every Product
+exports.getEveryProduct = async (req,res) => {
+    try{
+
+        const products = await Product.find()
+
+        res.status(200).json({
+            success: true,
+            products
+        })
+
+    }catch(err){
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
 }

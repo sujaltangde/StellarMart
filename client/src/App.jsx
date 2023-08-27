@@ -151,6 +151,7 @@ function App() {
 
 
         <Route path="/pproducts" element={<PProducts/>} />
+        <Route path="/pproducts/:searchKey" element={<PProducts/>} />
 
 
       </Routes>

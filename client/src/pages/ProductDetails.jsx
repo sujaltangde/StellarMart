@@ -19,7 +19,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Rating } from '@mui/material';
 import { newReviewReset } from '../slices/ProductSlice'
 import { Link } from 'react-router-dom';
-import {LiaRupeeSignSolid} from 'react-icons/lia'
+import { LiaRupeeSignSolid } from 'react-icons/lia'
 
 
 export const ProductDetails = () => {
@@ -149,10 +149,10 @@ export const ProductDetails = () => {
                                     </div>
 
                                     <div className=' border pl-6 border-x-0 py-4 border-gray-400'>
-                                    <div className='flex items-center'>
-                                    <LiaRupeeSignSolid size={22} />
-                                        <span className=' text-2xl font-normal '>  {product.price} </span>
-                                    </div>
+                                        <div className='flex items-center'>
+                                            <LiaRupeeSignSolid size={22} />
+                                            <span className=' text-2xl font-normal '>  {product.price} </span>
+                                        </div>
 
                                         <div className="flex gap-8 pt-2">
 
@@ -245,32 +245,35 @@ export const ProductDetails = () => {
                                 }
                             </div>
                             <div className='pb-20'>
-                               
+
                                 {categoryProducts.filter((item) => item._id !== id).length !== 0 &&
                                     <div className='text-2xl  pb-2 flex justify-center items-center '>
                                         <span className='border flex justify-center items-center border-gray-500 pb-1 border-x-0 border-t-0 px-12 text-2xl font-normal' >
-                                        In {product.category}'s</span>
+                                            In {product.category}'s</span>
                                     </div>
 
                                 }
 
 
 
-                                <div className='flex overflow-auto md:gap-8 gap-5 justify-center py-6 items-center'>
+                                <div className='flex overflow-auto md:gap-8 gap-2 justify-center py-6 items-center'>
                                     {categoryProducts.length > 0 ? categoryProducts.filter((e) => (e._id !== id)).map((item) => (
-                                        <Link to={`/product/${item._id}`}  >
-                                            <div key={item._id} className=' border shadow-sm hover:translate-y-1 shadow-gray-400 rounded-md p-2 grid gird-cols-1 justify-items-start' >
-                                                <div className='  '>
-                                                    <img src={item.images[0].url} className='  md:w-44 md:h-44 ' alt={item.name} />
+                                        <Link to={`/product/${item._id}`} className='' >
+                                            <div key={item._id} className=' border shadow-sm hover:-translate-y-2 shadow-gray-400 rounded-md p-2 ' >
+                                                {/* <div className='md:p-2 p-3 '>
+                                                    <img src={item.images[0].url} className=' w-full h-full object-cover ' alt={item.name} />
+                                                </div> */}
+                                                <div className='flex items-center'>
+                                                    <img src={item.images[0].url} className='md:h-36 md:w-36 h-28 w-28' alt="" />
                                                 </div>
-                                                <div className='flex md:w-4/5  md:text-sm text-sm flex-wrap'>
+                                                <div className='flex md:w-4/5 font-sans pt-2  md:text-sm text-sm flex-wrap'>
                                                     {item.name}
                                                 </div>
                                                 <div>
                                                     <Rating readOnly value={item.rating} size="small" />
                                                 </div>
-                                                <div>
-                                                    ₹{item.price}
+                                                <div className='flex text-orange-500 font-medium justify-start items-center'> <span><LiaRupeeSignSolid /></span>
+                                                    <span>{item.price}</span>
                                                 </div>
 
                                             </div>
