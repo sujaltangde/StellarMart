@@ -28,7 +28,7 @@ export const AllProducts = () => {
   const { keyword } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { products, loading, productsCount, resultPerPage } = useSelector(state => state.products)
+  const { products, loading, productsCount, resultPerPage, filteredProductsCount } = useSelector(state => state.products)
 
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000])
@@ -45,6 +45,9 @@ export const AllProducts = () => {
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice)
   }
+
+  console.log(filteredProductsCount)
+  
 
   useEffect(() => {
     dispatch(getProducts(keyword, currentPage, price, category, ratings))
@@ -121,7 +124,7 @@ export const AllProducts = () => {
                       () => {
                       
                       setCategory(category)
-                      setTotalProductCount(1)
+                      
                     }
                         
                     }> {category} </li>
@@ -135,7 +138,7 @@ export const AllProducts = () => {
                   value={ratings}
                   onChange={(e, newRating) => {
                     setRatings(newRating);
-                    setTotalProductCount(1)
+                    
                   }}
                   aria-labelledby="continuous-slider"
                   valueLabelDisplay="auto"
@@ -147,7 +150,7 @@ export const AllProducts = () => {
               <div className='pt-6'>
                 <button className='text-left py-1  px-3 text-white font-semibold rounded hover:bg-orange-400 bg-orange-500' onClick={()=>{
                   removeFilterHandler()
-                  setTotalProductCount(productsCount)
+               
                 }}>Remove Filters</button>
               </div>
             </div>
